@@ -830,6 +830,25 @@
       cursor: not-allowed;
     }
 
+    .delete-btn {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 11px;
+      background: transparent;
+      color: var(--red);
+      border: 1px solid rgba(192,57,43,0.3);
+      border-radius: var(--r);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      display: none;
+    }
+    .delete-btn:hover { background: var(--red-pale); border-color: var(--red); }
+    .delete-btn.visible { display: block; }
+
     /* toast */
     .toast {
       position: fixed;
@@ -1009,6 +1028,7 @@
           </div>
 
           <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
+          <button class="delete-btn" id="delete-btn" onclick="deleteImage()">🗑 სურათის წაშლა</button>
         </div>
       </div>
 
@@ -1353,6 +1373,12 @@
 
     function updateSaveBtn() {
       document.getElementById("save-btn").disabled = !(selectedBook && pendingFile);
+      const delBtn = document.getElementById("delete-btn");
+      if (selectedBook && imageMap[selectedBook._key]) {
+        delBtn.classList.add("visible");
+      } else {
+        delBtn.classList.remove("visible");
+      }
     }
 
     function formatSize(bytes) {
@@ -1433,6 +1459,70 @@
       btn.disabled = false;
       btn.textContent = "სურათის შენახვა";
       updateSaveBtn();
+    }
+
+    /* ══════════════════════════════════════════════
+       DELETE IMAGE
+    ══════════════════════════════════════════════ */
+    async function deleteImage() {
+      if (!selectedBook || !imageMap[selectedBook._key]) return;
+
+      if (!confirm(`"${selectedBook.title}" — სურათი წაიშლება. დარწმუნებული ხართ?`)) return;
+
+      const delBtn = document.getElementById("delete-btn");
+      delBtn.disabled = true;
+      delBtn.textContent = "იშლება…";
+
+      const key = selectedBook._key;
+      const imgUrl = imageMap[key];
+
+      try {
+        // 1. Find file extension from stored URL
+        const ext = imgUrl.split(".").pop().split("?")[0];
+        const filePath = key + "." + ext;
+
+        // 2. Delete from Supabase Storage
+        await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET}/${filePath}`, {
+          method: "DELETE",
+          headers: {
+            "apikey": SUPABASE_ANON,
+            "Authorization": "Bearer " + SUPABASE_ANON,
+          }
+        });
+
+        // 3. Delete from book_images table
+        const dbRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/book_images?book_key=eq.${encodeURIComponent(key)}`,
+          {
+            method: "DELETE",
+            headers: {
+              "apikey": SUPABASE_ANON,
+              "Authorization": "Bearer " + SUPABASE_ANON,
+            }
+          }
+        );
+
+        if (!dbRes.ok) {
+          const err = await dbRes.json().catch(() => ({}));
+          throw new Error(err.message || "DB delete failed");
+        }
+
+        // 4. Update local state
+        delete imageMap[key];
+
+        showToast(`🗑 სურათი წაიშალა: "${selectedBook.title}"`, "ok");
+        showSelectedCard();
+        renderList();
+        updateStats();
+        updateSaveBtn();
+
+      } catch(e) {
+        console.error(e);
+        showToast("❌ შეცდომა: " + e.message, "err");
+      }
+
+      delBtn.disabled = false;
+      delBtn.textContent = "🗑 სურათის წაშლა";
     }
 
     /* ══════════════════════════════════════════════
