@@ -221,6 +221,12 @@ function applyLang() {
 }
 
 /* ==========================================================
+   BOOK TITLE / AUTHOR HELPERS  (language-aware)
+   ========================================================== */
+function bTitle(b) { return (currentLang === "en" && b.title_en) ? b.title_en : b.title; }
+function bAuthor(b){ return (currentLang === "en" && b.author_en) ? b.author_en : b.author; }
+
+/* ==========================================================
    FETCH WITH MULTI-PROXY FALLBACK
    ========================================================== */
 async function fetchCSV(url) {
@@ -304,11 +310,12 @@ function parseCSV(text) {
         if (!b.title) continue;
         b.quantity       = parseInt(b.quantity) || 0;
         b.price          = parseFloat(b.price) || 0;
-        b.year           = parseInt(b.year) || null;
         b.original_price = parseFloat(b.original_price) || 0;
+        b.title_en       = (b.title_en  || "").trim();
+        b.author_en      = (b.author_en || "").trim();
         b._palette       = PALETTES[books.length % PALETTES.length];
         b._id            = books.length;
-        b._key           = (b.isbn || b.title).toLowerCase()
+        b._key           = b.title.toLowerCase()
                             .replace(/\s+/g, "_")
                             .replace(/[^a-z0-9_\u10D0-\u10FF]/g, "");
         books.push(b);
@@ -332,9 +339,8 @@ function splitLine(line) {
    ========================================================== */
 function onLoaded() {
     const inStock = allBooks.filter(b => b.quantity > 0).length;
-    const genres  = new Set(allBooks.map(b => b.genre).filter(Boolean)).size;
     $("stat-titles").textContent = inStock;
-    $("stat-genres").textContent = genres;
+    $("stat-genres").textContent = allBooks.length;
 
     renderHeroBooks();
     renderRecent();
@@ -352,10 +358,10 @@ function renderHeroBooks() {
         const p = b._palette;
         const imgUrl = imageMap[b._key];
         const inner = imgUrl
-            ? `<img src="${imgUrl}" alt="${esc(b.title)}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
+            ? `<img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
             : `<div class="hero-book-inner">
-                 <div class="hb-title" style="color:${p.tx}">${esc(b.title)}</div>
-                 <div class="hb-author" style="color:${p.tx}">${esc(b.author)}</div>
+                 <div class="hb-title" style="color:${p.tx}">${esc(bTitle(b))}</div>
+                 <div class="hb-author" style="color:${p.tx}">${esc(bAuthor(b))}</div>
                </div>`;
         return `<div class="hero-book" onclick="openBook(${b._id})" style="background:${p.bg}">${inner}</div>`;
     }).join("");
@@ -379,35 +385,13 @@ function renderRecent() {
    GENRE GRID  (3 × 3)
    ========================================================== */
 function getGridBooks() {
-    if (!gridGenre) {
-        const byGenre = {};
-        allBooks.forEach(b => {
-            if (b.genre) { (byGenre[b.genre] = byGenre[b.genre] || []).push(b); }
-        });
-        const keys = Object.keys(byGenre);
-        if (!keys.length) return allBooks.slice(0, 9);
-        const result = [];
-        for (let round = 0; result.length < 9; round++) {
-            let added = false;
-            for (const k of keys) {
-                if (result.length >= 9) break;
-                if (byGenre[k][round]) { result.push(byGenre[k][round]); added = true; }
-            }
-            if (!added) break;
-        }
-        return result;
-    }
+    if (!gridGenre) return allBooks.slice(0, 9);
     return allBooks.filter(b => b.genre === gridGenre).slice(0, 9);
 }
 
 function buildLandingChips() {
     const el = $("landing-chips"); if (!el) return;
-    const genres = [...new Set(allBooks.map(b => b.genre).filter(Boolean))].sort();
-    el.innerHTML =
-        `<button class="chip ${!gridGenre ? "active" : ""}" onclick="setGridGenre('',this)">${t("mixed")}</button>` +
-        genres.map(g =>
-            `<button class="chip ${gridGenre === g ? "active" : ""}" onclick="setGridGenre('${esc(g)}',this)">${esc(g)}</button>`
-        ).join("");
+    el.innerHTML = ""; // no genres
 }
 
 function setGridGenre(genre, btn) {
@@ -432,12 +416,8 @@ function renderGenreGrid() {
    ========================================================== */
 function buildCatalogChips() {
     const el = $("catalog-chips"); if (!el) return;
-    const genres = [...new Set(allBooks.map(b => b.genre).filter(Boolean))].sort();
-    el.innerHTML =
-        `<button class="chip ${!catGenre ? "active" : ""}" onclick="setCatGenre('',this)">${t("mixed")}</button>` +
-        genres.map(g =>
-            `<button class="chip ${catGenre === g ? "active" : ""}" onclick="setCatGenre('${esc(g)}',this)">${esc(g)}</button>`
-        ).join("");
+    el.innerHTML = ""; // no genre filter without genre column
+
 }
 
 function setCatGenre(genre, btn) {
@@ -479,10 +459,10 @@ function renderCatalog() {
     let filtered = allBooks.filter(b => {
         const ms = !q
             || b.title.toLowerCase().includes(q)
+            || (b.title_en || "").toLowerCase().includes(q)
             || b.author.toLowerCase().includes(q)
-            || (b.isbn || "").toLowerCase().includes(q);
-        const mg = !catGenre || b.genre === catGenre;
-        return ms && mg;
+            || (b.author_en || "").toLowerCase().includes(q);
+        return ms;
     });
 
     if (catSort === "price-asc")  filtered = [...filtered].sort((a, b) => a.price - b.price);
@@ -517,11 +497,11 @@ function bookCard(b, small) {
     const cls    = small ? "book-card book-card--small" : "book-card";
     const imgUrl = imageMap[b._key];
     const coverInner = imgUrl
-        ? `<img src="${imgUrl}" alt="${esc(b.title)}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
+        ? `<img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
         : `<div class="book-spine" style="background:${p.tx};opacity:0.4"></div>
            <div class="book-cover-text" style="color:${p.tx}">
-             <div class="bc-title">${esc(b.title)}</div>
-             <div class="bc-author">${esc(b.author)}</div>
+             <div class="bc-title">${esc(bTitle(b))}</div>
+             <div class="bc-author">${esc(bAuthor(b))}</div>
            </div>`;
     return `
   <div class="${cls}" onclick="openBook(${b._id})">
@@ -533,8 +513,8 @@ function bookCard(b, small) {
       </div>
     </div>
     <div class="book-meta">
-      <div class="book-name">${esc(b.title)}</div>
-      <div class="book-author-name">${esc(b.author)}</div>
+      <div class="book-name">${esc(bTitle(b))}</div>
+      <div class="book-author-name">${esc(bAuthor(b))}</div>
       <div class="book-footer-row">
         <div class="book-price-wrap">${priceHTML}</div>
         <span class="badge ${st.cls}">${st.label[currentLang]}</span>
@@ -561,17 +541,16 @@ function openBook(id) {
     const imgUrl = imageMap[b._key];
     const modalCover = imgUrl
         ? `<div class="modal-cover" style="background:${p.bg};padding:0;overflow:hidden">
-             <img src="${imgUrl}" alt="${esc(b.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
+             <img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block">
            </div>`
-        : `<div class="modal-cover" style="background:${p.bg};color:${p.tx}">${esc(b.title)}</div>`;
+        : `<div class="modal-cover" style="background:${p.bg};color:${p.tx}">${esc(bTitle(b))}</div>`;
 
     $("modal-content").innerHTML = `
   <div class="modal-top">
     ${modalCover}
     <div class="modal-info">
-      <div class="modal-title" style="color:var(--ink)">${esc(b.title)}</div>
-      <div class="modal-author-line">${esc(b.author)}</div>
-      ${b.description ? `<p class="modal-desc">${esc(b.description)}</p>` : ""}
+      <div class="modal-title" style="color:var(--ink)">${esc(bTitle(b))}</div>
+      <div class="modal-author-line">${esc(bAuthor(b))}</div>
     </div>
   </div>
   <div class="modal-fields">
@@ -591,15 +570,6 @@ function openBook(id) {
       <div class="m-val"><span class="badge ${st.cls}">${st.label[currentLang]}</span></div>
     </div>
     <div class="m-field">
-      <div class="m-label">${t("pGenre")}</div>
-      <div class="m-val" style="color:var(--ink)">${esc(b.genre) || "—"}</div>
-    </div>
-    <div class="m-field">
-      <div class="m-label">${t("pYear")}</div>
-      <div class="m-val" style="color:var(--ink)">${b.year || "—"}</div>
-    </div>
-    ${b.isbn ? `<div class="m-field"><div class="m-label">ISBN</div><div class="m-val" style="font-size:12px;color:var(--ink2)">${esc(b.isbn)}</div></div>` : ""}
-    <div class="m-field">
       <div class="m-label">${t("pUnits")}</div>
       <div class="m-val" style="color:var(--ink)">${b.quantity}</div>
     </div>
@@ -618,7 +588,7 @@ function orderCurrentBook() {
     if (!currentBook) return;
     closeModal();
     goContact();
-    setTimeout(() => { $("f-msg").value = t("orderMsg", currentBook.title, currentBook.author); }, 350);
+    setTimeout(() => { $("f-msg").value = t("orderMsg", bTitle(currentBook), bAuthor(currentBook)); }, 350);
 }
 
 /* ==========================================================
