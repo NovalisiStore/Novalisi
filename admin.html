@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ka">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ნოვალისი — ადმინი</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --ink: #1c140a;
@@ -15,7 +18,7 @@
       --paper: #fdf8f0;
       --surface: #f4ede0;
       --surface2: #ede4d5;
-      --border: rgba(28,20,10,0.1);
+      --border: rgba(28, 20, 10, 0.1);
       --hero-bg: #0b1510;
       --green: #2a5a3d;
       --green-light: #3d7a56;
@@ -30,8 +33,18 @@
       --r: 8px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: var(--sans);
       background: var(--paper);
@@ -53,39 +66,55 @@
       position: relative;
       overflow: hidden;
     }
+
     #login-screen::before {
       content: '';
       position: absolute;
-      top: -20%; left: -10%;
-      width: 60%; height: 80%;
-      background: radial-gradient(ellipse, rgba(42,90,61,0.18) 0%, transparent 70%);
+      top: -20%;
+      left: -10%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(42, 90, 61, 0.18) 0%, transparent 70%);
       pointer-events: none;
     }
+
     #login-screen::after {
       content: '';
       position: absolute;
-      bottom: -10%; right: -5%;
-      width: 50%; height: 70%;
-      background: radial-gradient(ellipse, rgba(184,124,44,0.08) 0%, transparent 70%);
+      bottom: -10%;
+      right: -5%;
+      width: 50%;
+      height: 70%;
+      background: radial-gradient(ellipse, rgba(184, 124, 44, 0.08) 0%, transparent 70%);
       pointer-events: none;
     }
+
     .login-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       padding: 3rem 2.5rem;
       width: 100%;
       max-width: 420px;
       backdrop-filter: blur(20px);
-      box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
       position: relative;
       z-index: 1;
       animation: fadeUp 0.5s ease both;
     }
+
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .login-logo {
       font-family: var(--serif);
       font-size: 28px;
@@ -93,28 +122,36 @@
       color: #fff;
       margin-bottom: 0.25rem;
     }
-    .login-logo em { font-style: italic; font-weight: 300; color: var(--cream); }
+
+    .login-logo em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream);
+    }
+
     .login-subtitle {
       font-size: 11px;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255, 255, 255, 0.3);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       margin-bottom: 2.5rem;
     }
+
     .login-label {
       display: block;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255, 255, 255, 0.4);
       margin-bottom: 8px;
     }
+
     .login-input {
       width: 100%;
       padding: 13px 16px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--r);
       color: #fff;
       font-family: var(--sans);
@@ -123,11 +160,16 @@
       transition: border-color 0.2s, background 0.2s;
       letter-spacing: 0.04em;
     }
+
     .login-input:focus {
-      border-color: rgba(245,230,200,0.5);
-      background: rgba(255,255,255,0.1);
+      border-color: rgba(245, 230, 200, 0.5);
+      background: rgba(255, 255, 255, 0.1);
     }
-    .login-input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .login-input::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+
     .login-btn {
       width: 100%;
       margin-top: 1.5rem;
@@ -144,13 +186,22 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.15s, opacity 0.2s;
     }
-    .login-btn:hover:not(:disabled) { background: var(--cream-dark); transform: translateY(-1px); }
-    .login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .login-btn:hover:not(:disabled) {
+      background: var(--cream-dark);
+      transform: translateY(-1px);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .login-error {
       margin-top: 1rem;
       padding: 10px 14px;
-      background: rgba(192,57,43,0.15);
-      border: 1px solid rgba(192,57,43,0.35);
+      background: rgba(192, 57, 43, 0.15);
+      border: 1px solid rgba(192, 57, 43, 0.35);
       border-radius: var(--r);
       color: #f5a8a0;
       font-size: 13px;
@@ -158,46 +209,61 @@
     }
 
     /* ── ADMIN APP ── */
-    #admin-app { display: none; }
+    #admin-app {
+      display: none;
+    }
 
     .admin-nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(11,21,16,0.97);
+      background: rgba(11, 21, 16, 0.97);
       backdrop-filter: blur(16px);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 4px 24px rgba(0,0,0,0.25);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 24px rgba(0, 0, 0, 0.25);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 2.5rem;
       height: 64px;
     }
+
     .admin-logo {
       font-family: var(--serif);
       font-size: 20px;
       font-weight: 500;
       color: #fff;
     }
-    .admin-logo em { font-style: italic; font-weight: 300; color: var(--cream); }
+
+    .admin-logo em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream);
+    }
+
     .admin-logo span {
       font-family: var(--sans);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: rgba(255, 255, 255, 0.3);
       margin-left: 12px;
       vertical-align: middle;
     }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     .sync-btn {
       display: flex;
       align-items: center;
       gap: 6px;
       padding: 7px 16px;
-      background: rgba(42,90,61,0.3);
-      border: 1px solid rgba(42,90,61,0.5);
+      background: rgba(42, 90, 61, 0.3);
+      border: 1px solid rgba(42, 90, 61, 0.5);
       border-radius: 100px;
       color: #7de8a8;
       font-family: var(--sans);
@@ -206,13 +272,17 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .sync-btn:hover { background: rgba(42,90,61,0.5); }
+
+    .sync-btn:hover {
+      background: rgba(42, 90, 61, 0.5);
+    }
+
     .logout-btn {
       padding: 7px 14px;
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 100px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255, 255, 255, 0.4);
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 500;
@@ -221,7 +291,11 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .logout-btn:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.7); }
+
+    .logout-btn:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+      color: rgba(255, 255, 255, 0.7);
+    }
 
     /* ── MAIN LAYOUT ── */
     .admin-body {
@@ -233,9 +307,15 @@
       gap: 2rem;
       align-items: start;
     }
+
     @media (max-width: 860px) {
-      .admin-body { grid-template-columns: 1fr; }
-      .admin-nav { padding: 0 1.25rem; }
+      .admin-body {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-nav {
+        padding: 0 1.25rem;
+      }
     }
 
     /* ── LEFT PANEL — SEARCH ── */
@@ -244,13 +324,15 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 12px rgba(28,20,10,0.06);
+      box-shadow: 0 2px 12px rgba(28, 20, 10, 0.06);
     }
+
     .panel-head {
       padding: 1.5rem 1.75rem 1.25rem;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
     }
+
     .panel-title {
       font-family: var(--serif);
       font-size: 22px;
@@ -258,9 +340,11 @@
       color: var(--ink);
       margin-bottom: 1rem;
     }
+
     .search-wrap {
       position: relative;
     }
+
     .search-wrap input {
       width: 100%;
       padding: 11px 16px 11px 42px;
@@ -273,8 +357,15 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .search-wrap input:focus { border-color: var(--green); }
-    .search-wrap input::placeholder { color: var(--ink3); }
+
+    .search-wrap input:focus {
+      border-color: var(--green);
+    }
+
+    .search-wrap input::placeholder {
+      color: var(--ink3);
+    }
+
     .search-icon {
       position: absolute;
       left: 14px;
@@ -284,6 +375,7 @@
       font-size: 18px;
       pointer-events: none;
     }
+
     .search-meta {
       display: flex;
       align-items: center;
@@ -292,29 +384,63 @@
       font-size: 12px;
       color: var(--ink3);
     }
+
     .sheets-status {
       display: flex;
       align-items: center;
       gap: 5px;
     }
+
     .dot {
-      width: 7px; height: 7px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #ccc;
     }
-    .dot.ok { background: #2ecc71; }
-    .dot.err { background: var(--red); }
-    .dot.loading { background: var(--gold); animation: pulse 1s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    .dot.ok {
+      background: #2ecc71;
+    }
+
+    .dot.err {
+      background: var(--red);
+    }
+
+    .dot.loading {
+      background: var(--gold);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.4
+      }
+    }
 
     /* ── BOOK LIST ── */
     .books-list {
       max-height: 520px;
       overflow-y: auto;
     }
-    .books-list::-webkit-scrollbar { width: 4px; }
-    .books-list::-webkit-scrollbar-track { background: transparent; }
-    .books-list::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 4px; }
+
+    .books-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .books-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .books-list::-webkit-scrollbar-thumb {
+      background: var(--surface2);
+      border-radius: 4px;
+    }
 
     .book-row {
       display: flex;
@@ -326,13 +452,25 @@
       transition: background 0.15s;
       position: relative;
     }
-    .book-row:last-child { border-bottom: none; }
-    .book-row:hover { background: var(--surface); }
-    .book-row.selected { background: var(--green-pale); }
+
+    .book-row:last-child {
+      border-bottom: none;
+    }
+
+    .book-row:hover {
+      background: var(--surface);
+    }
+
+    .book-row.selected {
+      background: var(--green-pale);
+    }
+
     .book-row.selected::before {
       content: '';
       position: absolute;
-      left: 0; top: 0; bottom: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
       width: 3px;
       background: var(--green);
       border-radius: 0 2px 2px 0;
@@ -344,11 +482,18 @@
       border-radius: 4px;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
     }
-    .row-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+    .row-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .row-cover-ph {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -359,7 +504,11 @@
       line-height: 1.2;
     }
 
-    .row-info { flex: 1; min-width: 0; }
+    .row-info {
+      flex: 1;
+      min-width: 0;
+    }
+
     .row-title {
       font-weight: 500;
       font-size: 14px;
@@ -368,10 +517,27 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .row-author { font-size: 12px; color: var(--ink3); margin-top: 2px; }
 
-    .row-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
-    .row-price { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .row-author {
+      font-size: 12px;
+      color: var(--ink3);
+      margin-top: 2px;
+    }
+
+    .row-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .row-price {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
     .badge {
       font-size: 10px;
       font-weight: 600;
@@ -380,17 +546,33 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-    .badge-in  { background: #d4ede0; color: #1a5c38; }
-    .badge-low { background: #fff3cd; color: #856404; }
-    .badge-out { background: #fdecea; color: #b71c1c; }
+
+    .badge-in {
+      background: #d4ede0;
+      color: #1a5c38;
+    }
+
+    .badge-low {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .badge-out {
+      background: #fdecea;
+      color: #b71c1c;
+    }
 
     .img-dot {
-      width: 8px; height: 8px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #ddd;
       title: "no image";
     }
-    .img-dot.has-img { background: var(--green); }
+
+    .img-dot.has-img {
+      background: var(--green);
+    }
 
     .list-state {
       padding: 3rem 1.75rem;
@@ -398,15 +580,22 @@
       color: var(--ink3);
       font-size: 13px;
     }
+
     .spinner {
-      width: 28px; height: 28px;
+      width: 28px;
+      height: 28px;
       border: 3px solid var(--surface2);
       border-top-color: var(--green);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       margin: 0 auto 1rem;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* ── RIGHT PANEL — UPLOAD ── */
     .upload-panel {
@@ -414,15 +603,17 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 12px rgba(28,20,10,0.06);
+      box-shadow: 0 2px 12px rgba(28, 20, 10, 0.06);
       position: sticky;
       top: 84px;
     }
+
     .upload-head {
       padding: 1.5rem 1.75rem 1.25rem;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
     }
+
     .upload-title {
       font-family: var(--serif);
       font-size: 22px;
@@ -430,7 +621,11 @@
       color: var(--ink);
       margin-bottom: 0.25rem;
     }
-    .upload-sub { font-size: 12px; color: var(--ink3); }
+
+    .upload-sub {
+      font-size: 12px;
+      color: var(--ink3);
+    }
 
     /* selected book preview */
     .selected-book-card {
@@ -441,29 +636,71 @@
       gap: 1rem;
       align-items: center;
     }
-    .selected-book-card.visible { display: flex; }
+
+    .selected-book-card.visible {
+      display: flex;
+    }
+
     .sel-cover {
-      width: 48px; height: 66px;
+      width: 48px;
+      height: 66px;
       border-radius: 4px;
       overflow: hidden;
       flex-shrink: 0;
-      box-shadow: 2px 3px 10px rgba(0,0,0,0.15);
+      box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.15);
     }
-    .sel-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+    .sel-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .sel-cover-ph {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--serif); font-size: 8px; text-align: center; padding: 4px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 8px;
+      text-align: center;
+      padding: 4px;
     }
-    .sel-info { flex: 1; min-width: 0; }
-    .sel-title { font-weight: 600; font-size: 14px; color: var(--green); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sel-author { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+
+    .sel-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sel-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--green);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sel-author {
+      font-size: 12px;
+      color: var(--ink3);
+      margin-top: 2px;
+    }
+
     .sel-clear {
-      background: none; border: none; cursor: pointer;
-      color: var(--ink3); font-size: 18px; padding: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink3);
+      font-size: 18px;
+      padding: 4px;
       transition: color 0.15s;
     }
-    .sel-clear:hover { color: var(--red); }
+
+    .sel-clear:hover {
+      color: var(--red);
+    }
 
     .no-selection {
       padding: 2rem 1.75rem;
@@ -472,10 +709,17 @@
       font-size: 13px;
       border-bottom: 1px solid var(--border);
     }
-    .no-selection .arrow { font-size: 24px; margin-bottom: 0.5rem; }
+
+    .no-selection .arrow {
+      font-size: 24px;
+      margin-bottom: 0.5rem;
+    }
 
     /* drop zone */
-    .upload-body { padding: 1.5rem 1.75rem; }
+    .upload-body {
+      padding: 1.5rem 1.75rem;
+    }
+
     .drop-zone {
       border: 2px dashed var(--border);
       border-radius: 12px;
@@ -485,17 +729,36 @@
       transition: border-color 0.2s, background 0.2s;
       position: relative;
     }
-    .drop-zone:hover, .drop-zone.drag-over {
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
       border-color: var(--green);
       background: var(--green-pale);
     }
+
     .drop-zone input[type="file"] {
-      position: absolute; inset: 0;
-      opacity: 0; cursor: pointer;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
     }
-    .drop-icon { font-size: 32px; margin-bottom: 0.75rem; }
-    .drop-label { font-size: 14px; font-weight: 500; color: var(--ink2); margin-bottom: 4px; }
-    .drop-hint { font-size: 12px; color: var(--ink3); }
+
+    .drop-icon {
+      font-size: 32px;
+      margin-bottom: 0.75rem;
+    }
+
+    .drop-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink2);
+      margin-bottom: 4px;
+    }
+
+    .drop-hint {
+      font-size: 12px;
+      color: var(--ink3);
+    }
 
     /* image preview */
     .img-preview {
@@ -505,12 +768,15 @@
       border-radius: 10px;
       overflow: hidden;
     }
+
     .img-preview img {
-      width: 100%; max-height: 220px;
+      width: 100%;
+      max-height: 220px;
       object-fit: contain;
       background: var(--surface);
       display: block;
     }
+
     .img-preview-meta {
       padding: 10px 14px;
       display: flex;
@@ -521,12 +787,20 @@
       font-size: 12px;
       color: var(--ink3);
     }
+
     .preview-remove {
-      background: none; border: none; cursor: pointer;
-      color: var(--red); font-size: 13px; font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 500;
       transition: opacity 0.15s;
     }
-    .preview-remove:hover { opacity: 0.7; }
+
+    .preview-remove:hover {
+      opacity: 0.7;
+    }
 
     /* save button */
     .save-btn {
@@ -545,13 +819,22 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.15s, opacity 0.2s;
     }
-    .save-btn:hover:not(:disabled) { background: var(--green-light); transform: translateY(-1px); }
-    .save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .save-btn:hover:not(:disabled) {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    .save-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
     /* toast */
     .toast {
       position: fixed;
-      bottom: 2rem; right: 2rem;
+      bottom: 2rem;
+      right: 2rem;
       padding: 12px 20px;
       border-radius: var(--r);
       font-size: 13px;
@@ -559,10 +842,18 @@
       display: none;
       z-index: 999;
       animation: fadeUp 0.3s ease;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
-    .toast.ok  { background: var(--green); color: #fff; }
-    .toast.err { background: var(--red); color: #fff; }
+
+    .toast.ok {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .toast.err {
+      background: var(--red);
+      color: #fff;
+    }
 
     /* stats bar */
     .stats-bar {
@@ -571,13 +862,18 @@
       display: flex;
       gap: 0;
     }
+
     .stat-item {
       flex: 1;
       padding: 1rem 1.5rem;
       border-right: 1px solid var(--border);
       text-align: center;
     }
-    .stat-item:last-child { border-right: none; }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
     .stat-num {
       font-family: var(--serif);
       font-size: 28px;
@@ -585,574 +881,588 @@
       color: var(--ink);
       line-height: 1;
     }
-    .stat-lbl { font-size: 11px; color: var(--ink3); margin-top: 4px; letter-spacing: 0.04em; }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: var(--ink3);
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+    }
   </style>
 </head>
+
 <body>
 
-<!-- LOGIN SCREEN -->
-<div id="login-screen">
-  <div class="login-card">
-    <div class="login-logo">ნოვალისი <em>წიგნები</em></div>
-    <div class="login-subtitle">Admin Panel</div>
-    <label class="login-label">პაროლი</label>
-    <input class="login-input" type="password" id="pw-input" placeholder="••••••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" id="login-btn" onclick="doLogin()">შესვლა</button>
-    <div class="login-error" id="login-error"></div>
-  </div>
-</div>
-
-<!-- ADMIN APP -->
-<div id="admin-app">
-
-  <!-- NAV -->
-  <nav class="admin-nav">
-    <div class="admin-logo">ნოვალისი <em>წიგნები</em> <span>Admin</span></div>
-    <div class="nav-right">
-      <button class="sync-btn" onclick="reloadBooks()">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
-          <path d="M14 8A6 6 0 1 1 8 2M14 2v4h-4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        განახლება
-      </button>
-      <button class="logout-btn" onclick="doLogout()">გასვლა</button>
-    </div>
-  </nav>
-
-  <!-- STATS -->
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-num" id="s-total">—</div>
-      <div class="stat-lbl">სულ წიგნი</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="s-instock">—</div>
-      <div class="stat-lbl">მარაგშია</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="s-images">—</div>
-      <div class="stat-lbl">სურათი ატვირთული</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="s-noimages">—</div>
-      <div class="stat-lbl">სურათის გარეშე</div>
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">ნოვალისი <em>წიგნები</em></div>
+      <div class="login-subtitle">Admin Panel</div>
+      <label class="login-label">პაროლი</label>
+      <input class="login-input" type="password" id="pw-input" placeholder="••••••••••••"
+        onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="login-btn" id="login-btn" onclick="doLogin()">შესვლა</button>
+      <div class="login-error" id="login-error"></div>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <div class="admin-body">
+  <!-- ADMIN APP -->
+  <div id="admin-app">
 
-    <!-- LEFT: SEARCH + LIST -->
-    <div class="panel">
-      <div class="panel-head">
-        <div class="panel-title">წიგნების ძიება</div>
-        <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input type="text" id="book-search" placeholder="სათაური ან ავტორი…" oninput="filterList()">
-        </div>
-        <div class="search-meta">
-          <span id="list-count"></span>
-          <div class="sheets-status">
-            <div class="dot loading" id="sheets-dot"></div>
-            <span id="sheets-label">Google Sheets…</span>
-          </div>
-        </div>
+    <!-- NAV -->
+    <nav class="admin-nav">
+      <div class="admin-logo">ნოვალისი <em>წიგნები</em> <span>Admin</span></div>
+      <div class="nav-right">
+        <button class="sync-btn" onclick="reloadBooks()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+            <path d="M14 8A6 6 0 1 1 8 2M14 2v4h-4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          განახლება
+        </button>
+        <button class="logout-btn" onclick="doLogout()">გასვლა</button>
       </div>
-      <div class="books-list" id="books-list">
-        <div class="list-state"><div class="spinner"></div>იტვირთება…</div>
+    </nav>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num" id="s-total">—</div>
+        <div class="stat-lbl">სულ წიგნი</div>
       </div>
-    </div>
-
-    <!-- RIGHT: UPLOAD -->
-    <div class="upload-panel">
-      <div class="upload-head">
-        <div class="upload-title">სურათის ატვირთვა</div>
-        <div class="upload-sub">აირჩიეთ წიგნი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
+      <div class="stat-item">
+        <div class="stat-num" id="s-instock">—</div>
+        <div class="stat-lbl">მარაგშია</div>
       </div>
-
-      <!-- no book selected -->
-      <div class="no-selection" id="no-sel">
-        <div class="arrow">←</div>
-        <div>პირველ რიგში აირჩიეთ წიგნი</div>
+      <div class="stat-item">
+        <div class="stat-num" id="s-images">—</div>
+        <div class="stat-lbl">სურათი ატვირთული</div>
       </div>
-
-      <!-- selected book info -->
-      <div class="selected-book-card" id="sel-card">
-        <div class="sel-cover" id="sel-cover-wrap"></div>
-        <div class="sel-info">
-          <div class="sel-title" id="sel-title-txt"></div>
-          <div class="sel-author" id="sel-author-txt"></div>
-        </div>
-        <button class="sel-clear" onclick="clearSelection()" title="გაუქმება">✕</button>
-      </div>
-
-      <div class="upload-body">
-        <div class="drop-zone" id="drop-zone">
-          <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
-          <div class="drop-icon">📷</div>
-          <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
-          <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
-        </div>
-
-        <div class="img-preview" id="img-preview">
-          <img id="preview-img" src="" alt="preview">
-          <div class="img-preview-meta">
-            <span id="preview-name"></span>
-            <button class="preview-remove" onclick="clearFile()">✕ წაშლა</button>
-          </div>
-        </div>
-
-        <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
+      <div class="stat-item">
+        <div class="stat-num" id="s-noimages">—</div>
+        <div class="stat-lbl">სურათის გარეშე</div>
       </div>
     </div>
 
-  </div><!-- /admin-body -->
-</div><!-- /admin-app -->
+    <!-- MAIN -->
+    <div class="admin-body">
 
-<div class="toast" id="toast"></div>
+      <!-- LEFT: SEARCH + LIST -->
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">წიგნების ძიება</div>
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="book-search" placeholder="სათაური ან ავტორი…" oninput="filterList()">
+          </div>
+          <div class="search-meta">
+            <span id="list-count"></span>
+            <div class="sheets-status">
+              <div class="dot loading" id="sheets-dot"></div>
+              <span id="sheets-label">Google Sheets…</span>
+            </div>
+          </div>
+        </div>
+        <div class="books-list" id="books-list">
+          <div class="list-state">
+            <div class="spinner"></div>იტვირთება…
+          </div>
+        </div>
+      </div>
 
-<script>
-/* ══════════════════════════════════════════════
-   CONFIG
-══════════════════════════════════════════════ */
-const SUPABASE_URL  = "https://umjsamfyisrdvyyvcooo.supabase.co";
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtanNhbWZ5aXNyZHZ5eXZjb29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTMzMTYsImV4cCI6MjA5NTM2OTMxNn0.xGCj7Bx3VoU5HsRUz-_Sbsb7chlP7bQsk60t23nset8";
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
-const BUCKET        = "book-images";
-const SESSION_KEY   = "novalisi_admin_token";
+      <!-- RIGHT: UPLOAD -->
+      <div class="upload-panel">
+        <div class="upload-head">
+          <div class="upload-title">სურათის ატვირთვა</div>
+          <div class="upload-sub">აირჩიეთ წიგნი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
+        </div>
 
-/* ══════════════════════════════════════════════
-   STATE
-══════════════════════════════════════════════ */
-let allBooks       = [];
-let filteredBooks  = [];
-let selectedBook   = null;
-let pendingFile    = null;
-let imageMap       = {}; // bookKey → public image URL
+        <!-- no book selected -->
+        <div class="no-selection" id="no-sel">
+          <div class="arrow">←</div>
+          <div>პირველ რიგში აირჩიეთ წიგნი</div>
+        </div>
 
-const PALETTES = [
-  {bg:"#1a2744",tx:"#e8dfc8"},{bg:"#2d4a3e",tx:"#f0ead6"},
-  {bg:"#4a2428",tx:"#f5e0d8"},{bg:"#2d2d4a",tx:"#dde8f5"},
-  {bg:"#3d3218",tx:"#f5ead0"},{bg:"#1f3040",tx:"#d8eaf5"},
-  {bg:"#402020",tx:"#f5dcd8"},{bg:"#254030",tx:"#d8f0e4"},
-  {bg:"#3a1f3a",tx:"#f0ddf5"},{bg:"#203040",tx:"#d8eaf0"},
-  {bg:"#1a3028",tx:"#e0f2ea"},{bg:"#3b2a10",tx:"#f5e6c8"},
-  {bg:"#0f2535",tx:"#c8e8f5"},{bg:"#2a1a40",tx:"#e8d8f5"},
-  {bg:"#1e3520",tx:"#d5f0d8"},
-];
+        <!-- selected book info -->
+        <div class="selected-book-card" id="sel-card">
+          <div class="sel-cover" id="sel-cover-wrap"></div>
+          <div class="sel-info">
+            <div class="sel-title" id="sel-title-txt"></div>
+            <div class="sel-author" id="sel-author-txt"></div>
+          </div>
+          <button class="sel-clear" onclick="clearSelection()" title="გაუქმება">✕</button>
+        </div>
 
-function bookKey(b) {
-  return (b.isbn || b.title).toLowerCase().replace(/\s+/g,"_").replace(/[^a-z0-9_\u10D0-\u10FF]/g,"");
-}
+        <div class="upload-body">
+          <div class="drop-zone" id="drop-zone">
+            <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
+            <div class="drop-icon">📷</div>
+            <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
+            <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+          </div>
 
-/* ══════════════════════════════════════════════
-   AUTH
-══════════════════════════════════════════════ */
-async function doLogin() {
-  const pw  = document.getElementById("pw-input").value;
-  const btn = document.getElementById("login-btn");
-  const err = document.getElementById("login-error");
+          <div class="img-preview" id="img-preview">
+            <img id="preview-img" src="" alt="preview">
+            <div class="img-preview-meta">
+              <span id="preview-name"></span>
+              <button class="preview-remove" onclick="clearFile()">✕ წაშლა</button>
+            </div>
+          </div>
 
-  if (!pw) { showLoginError("შეიყვანეთ პაროლი"); return; }
+          <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
+        </div>
+      </div>
 
-  btn.disabled = true;
-  btn.textContent = "მოწმდება…";
-  err.style.display = "none";
+    </div><!-- /admin-body -->
+  </div><!-- /admin-app -->
 
-  try {
-    const res = await fetch(`${SUPABASE_URL}/functions/v1/check-password`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "apikey": SUPABASE_ANON },
-      body: JSON.stringify({ password: pw }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      sessionStorage.setItem(SESSION_KEY, data.token);
-      enterAdmin();
-    } else {
-      showLoginError("პაროლი არასწორია");
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* ══════════════════════════════════════════════
+       CONFIG
+    ══════════════════════════════════════════════ */
+    const SUPABASE_URL = "https://umjsamfyisrdvyyvcooo.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtanNhbWZ5aXNyZHZ5eXZjb29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTMzMTYsImV4cCI6MjA5NTM2OTMxNn0.xGCj7Bx3VoU5HsRUz-_Sbsb7chlP7bQsk60t23nset8";
+    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
+    const BUCKET = "book-images";
+    const SESSION_KEY = "novalisi_admin_token";
+
+    /* ══════════════════════════════════════════════
+       STATE
+    ══════════════════════════════════════════════ */
+    let allBooks = [];
+    let filteredBooks = [];
+    let selectedBook = null;
+    let pendingFile = null;
+    let imageMap = {}; // bookKey → public image URL
+
+    const PALETTES = [
+      { bg: "#1a2744", tx: "#e8dfc8" }, { bg: "#2d4a3e", tx: "#f0ead6" },
+      { bg: "#4a2428", tx: "#f5e0d8" }, { bg: "#2d2d4a", tx: "#dde8f5" },
+      { bg: "#3d3218", tx: "#f5ead0" }, { bg: "#1f3040", tx: "#d8eaf5" },
+      { bg: "#402020", tx: "#f5dcd8" }, { bg: "#254030", tx: "#d8f0e4" },
+      { bg: "#3a1f3a", tx: "#f0ddf5" }, { bg: "#203040", tx: "#d8eaf0" },
+      { bg: "#1a3028", tx: "#e0f2ea" }, { bg: "#3b2a10", tx: "#f5e6c8" },
+      { bg: "#0f2535", tx: "#c8e8f5" }, { bg: "#2a1a40", tx: "#e8d8f5" },
+      { bg: "#1e3520", tx: "#d5f0d8" },
+    ];
+
+    function bookKey(b) {
+      return (b.isbn || b.title).toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_\u10D0-\u10FF]/g, "");
     }
-  } catch(e) {
-    showLoginError("კავშირის შეცდომა — სცადეთ თავიდან");
-  }
 
-  btn.disabled = false;
-  btn.textContent = "შესვლა";
-}
+    /* ══════════════════════════════════════════════
+       AUTH
+    ══════════════════════════════════════════════ */
+    async function doLogin() {
+      const pw = document.getElementById("pw-input").value;
+      const btn = document.getElementById("login-btn");
+      const err = document.getElementById("login-error");
 
-function showLoginError(msg) {
-  const err = document.getElementById("login-error");
-  err.textContent = msg;
-  err.style.display = "block";
-}
+      if (!pw) { showLoginError("შეიყვანეთ პაროლი"); return; }
 
-function checkSession() {
-  const tok = sessionStorage.getItem(SESSION_KEY);
-  if (tok) enterAdmin();
-}
+      btn.disabled = true;
+      btn.textContent = "მოწმდება…";
+      err.style.display = "none";
 
-function enterAdmin() {
-  document.getElementById("login-screen").style.display = "none";
-  document.getElementById("admin-app").style.display = "block";
-  loadBooks();
-  loadImageMap();
-}
-
-function doLogout() {
-  sessionStorage.removeItem(SESSION_KEY);
-  location.reload();
-}
-
-/* ══════════════════════════════════════════════
-   LOAD BOOKS FROM GOOGLE SHEETS
-══════════════════════════════════════════════ */
-async function loadBooks() {
-  setSheetStatus("loading", "Google Sheets…");
-  const csv = await fetchCSV(SHEET_CSV_URL);
-  if (!csv) { setSheetStatus("err", "ჩატვირთვა ვერ მოხდა"); return; }
-  allBooks = parseCSV(csv);
-  filteredBooks = allBooks;
-  setSheetStatus("ok", `${allBooks.length} წიგნი ჩაიტვირთა`);
-  renderList();
-  updateStats();
-}
-
-async function reloadBooks() {
-  allBooks = []; filteredBooks = [];
-  document.getElementById("books-list").innerHTML = '<div class="list-state"><div class="spinner"></div>განახლება…</div>';
-  await loadBooks();
-  await loadImageMap();
-}
-
-async function fetchCSV(url) {
-  const proxies = [
-    url,
-    "https://corsproxy.io/?" + encodeURIComponent(url),
-    "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
-  ];
-  for (const src of proxies) {
-    try {
-      const r = await fetch(src, { signal: AbortSignal.timeout(7000) });
-      if (r.ok) { const txt = await r.text(); if (txt.trim().length > 10) return txt; }
-    } catch(_) {}
-  }
-  return null;
-}
-
-function parseCSV(text) {
-  const lines = text.replace(/\r\n/g,"\n").replace(/\r/g,"\n").split("\n").map(l=>l.trim()).filter(Boolean);
-  if (lines.length < 2) return [];
-  const headers = splitLine(lines[0]).map(h=>h.toLowerCase().trim());
-  const books = [];
-  for (let i = 1; i < lines.length; i++) {
-    const vals = splitLine(lines[i]);
-    const b = {};
-    headers.forEach((h,idx) => { b[h] = (vals[idx]||"").trim(); });
-    if (!b.title) continue;
-    b.quantity      = parseInt(b.quantity) || 0;
-    b.price         = parseFloat(b.price) || 0;
-    b.year          = parseInt(b.year) || null;
-    b.original_price= parseFloat(b.original_price) || 0;
-    b._id           = books.length;
-    b._palette      = PALETTES[books.length % PALETTES.length];
-    b._key          = bookKey(b);
-    books.push(b);
-  }
-  return books;
-}
-
-function splitLine(line) {
-  const res=[]; let cur=""; let q=false;
-  for(let i=0;i<line.length;i++){
-    const c=line[i];
-    if(c==='"'){if(q&&line[i+1]==='"'){cur+='"';i++;}else q=!q;}
-    else if(c===','&&!q){res.push(cur);cur="";}
-    else cur+=c;
-  }
-  res.push(cur); return res;
-}
-
-function setSheetStatus(state, label) {
-  const dot = document.getElementById("sheets-dot");
-  const lbl = document.getElementById("sheets-label");
-  dot.className = "dot " + state;
-  lbl.textContent = label;
-}
-
-/* ══════════════════════════════════════════════
-   LOAD IMAGE MAP FROM SUPABASE
-══════════════════════════════════════════════ */
-async function loadImageMap() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/book_images?select=book_key,image_url`, {
-      headers: {
-        "apikey": SUPABASE_ANON,
-        "Authorization": "Bearer " + SUPABASE_ANON,
+      try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/check-password`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_ANON,
+            "Authorization": "Bearer " + SUPABASE_ANON
+          }, body: JSON.stringify({ password: pw }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          sessionStorage.setItem(SESSION_KEY, data.token);
+          enterAdmin();
+        } else {
+          showLoginError("პაროლი არასწორია");
+        }
+      } catch (e) {
+        showLoginError("კავშირის შეცდომა — სცადეთ თავიდან");
       }
-    });
-    if (!res.ok) return;
-    const rows = await res.json();
-    imageMap = {};
-    rows.forEach(r => { imageMap[r.book_key] = r.image_url; });
-    renderList();
-    updateStats();
-  } catch(e) {
-    console.warn("Could not load image map:", e);
-  }
-}
 
-/* ══════════════════════════════════════════════
-   RENDER BOOK LIST
-══════════════════════════════════════════════ */
-function filterList() {
-  const q = document.getElementById("book-search").value.toLowerCase().trim();
-  filteredBooks = q
-    ? allBooks.filter(b =>
-        b.title.toLowerCase().includes(q) ||
-        (b.author||"").toLowerCase().includes(q)
-      )
-    : allBooks;
-  renderList();
-}
+      btn.disabled = false;
+      btn.textContent = "შესვლა";
+    }
 
-function renderList() {
-  const container = document.getElementById("books-list");
-  const countEl   = document.getElementById("list-count");
+    function showLoginError(msg) {
+      const err = document.getElementById("login-error");
+      err.textContent = msg;
+      err.style.display = "block";
+    }
 
-  if (!allBooks.length) {
-    container.innerHTML = '<div class="list-state"><div class="spinner"></div>იტვირთება…</div>';
-    return;
-  }
+    function checkSession() {
+      const tok = sessionStorage.getItem(SESSION_KEY);
+      if (tok) enterAdmin();
+    }
 
-  countEl.textContent = filteredBooks.length + " წიგნი";
+    function enterAdmin() {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("admin-app").style.display = "block";
+      loadBooks();
+      loadImageMap();
+    }
 
-  if (!filteredBooks.length) {
-    container.innerHTML = '<div class="list-state">📭 ვერ მოიძებნა</div>';
-    return;
-  }
+    function doLogout() {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.reload();
+    }
 
-  container.innerHTML = filteredBooks.map(b => {
-    const p = b._palette;
-    const imgUrl = imageMap[b._key];
-    const isSelected = selectedBook && selectedBook._id === b._id;
-    const st = stockInfo(b.quantity);
-    const coverHTML = imgUrl
-      ? `<img src="${imgUrl}" alt="">`
-      : `<div class="row-cover-ph" style="background:${p.bg};color:${p.tx}">${esc(b.title.substring(0,12))}</div>`;
+    /* ══════════════════════════════════════════════
+       LOAD BOOKS FROM GOOGLE SHEETS
+    ══════════════════════════════════════════════ */
+    async function loadBooks() {
+      setSheetStatus("loading", "Google Sheets…");
+      const csv = await fetchCSV(SHEET_CSV_URL);
+      if (!csv) { setSheetStatus("err", "ჩატვირთვა ვერ მოხდა"); return; }
+      allBooks = parseCSV(csv);
+      filteredBooks = allBooks;
+      setSheetStatus("ok", `${allBooks.length} წიგნი ჩაიტვირთა`);
+      renderList();
+      updateStats();
+    }
 
-    return `
+    async function reloadBooks() {
+      allBooks = []; filteredBooks = [];
+      document.getElementById("books-list").innerHTML = '<div class="list-state"><div class="spinner"></div>განახლება…</div>';
+      await loadBooks();
+      await loadImageMap();
+    }
+
+    async function fetchCSV(url) {
+      const proxies = [
+        url,
+        "https://corsproxy.io/?" + encodeURIComponent(url),
+        "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
+      ];
+      for (const src of proxies) {
+        try {
+          const r = await fetch(src, { signal: AbortSignal.timeout(7000) });
+          if (r.ok) { const txt = await r.text(); if (txt.trim().length > 10) return txt; }
+        } catch (_) { }
+      }
+      return null;
+    }
+
+    function parseCSV(text) {
+      const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").map(l => l.trim()).filter(Boolean);
+      if (lines.length < 2) return [];
+      const headers = splitLine(lines[0]).map(h => h.toLowerCase().trim());
+      const books = [];
+      for (let i = 1; i < lines.length; i++) {
+        const vals = splitLine(lines[i]);
+        const b = {};
+        headers.forEach((h, idx) => { b[h] = (vals[idx] || "").trim(); });
+        if (!b.title) continue;
+        b.quantity = parseInt(b.quantity) || 0;
+        b.price = parseFloat(b.price) || 0;
+        b.year = parseInt(b.year) || null;
+        b.original_price = parseFloat(b.original_price) || 0;
+        b._id = books.length;
+        b._palette = PALETTES[books.length % PALETTES.length];
+        b._key = bookKey(b);
+        books.push(b);
+      }
+      return books;
+    }
+
+    function splitLine(line) {
+      const res = []; let cur = ""; let q = false;
+      for (let i = 0; i < line.length; i++) {
+        const c = line[i];
+        if (c === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; }
+        else if (c === ',' && !q) { res.push(cur); cur = ""; }
+        else cur += c;
+      }
+      res.push(cur); return res;
+    }
+
+    function setSheetStatus(state, label) {
+      const dot = document.getElementById("sheets-dot");
+      const lbl = document.getElementById("sheets-label");
+      dot.className = "dot " + state;
+      lbl.textContent = label;
+    }
+
+    /* ══════════════════════════════════════════════
+       LOAD IMAGE MAP FROM SUPABASE
+    ══════════════════════════════════════════════ */
+    async function loadImageMap() {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/book_images?select=book_key,image_url`, {
+          headers: {
+            "apikey": SUPABASE_ANON,
+            "Authorization": "Bearer " + SUPABASE_ANON,
+          }
+        });
+        if (!res.ok) return;
+        const rows = await res.json();
+        imageMap = {};
+        rows.forEach(r => { imageMap[r.book_key] = r.image_url; });
+        renderList();
+        updateStats();
+      } catch (e) {
+        console.warn("Could not load image map:", e);
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       RENDER BOOK LIST
+    ══════════════════════════════════════════════ */
+    function filterList() {
+      const q = document.getElementById("book-search").value.toLowerCase().trim();
+      filteredBooks = q
+        ? allBooks.filter(b =>
+          b.title.toLowerCase().includes(q) ||
+          (b.author || "").toLowerCase().includes(q)
+        )
+        : allBooks;
+      renderList();
+    }
+
+    function renderList() {
+      const container = document.getElementById("books-list");
+      const countEl = document.getElementById("list-count");
+
+      if (!allBooks.length) {
+        container.innerHTML = '<div class="list-state"><div class="spinner"></div>იტვირთება…</div>';
+        return;
+      }
+
+      countEl.textContent = filteredBooks.length + " წიგნი";
+
+      if (!filteredBooks.length) {
+        container.innerHTML = '<div class="list-state">📭 ვერ მოიძებნა</div>';
+        return;
+      }
+
+      container.innerHTML = filteredBooks.map(b => {
+        const p = b._palette;
+        const imgUrl = imageMap[b._key];
+        const isSelected = selectedBook && selectedBook._id === b._id;
+        const st = stockInfo(b.quantity);
+        const coverHTML = imgUrl
+          ? `<img src="${imgUrl}" alt="">`
+          : `<div class="row-cover-ph" style="background:${p.bg};color:${p.tx}">${esc(b.title.substring(0, 12))}</div>`;
+
+        return `
     <div class="book-row ${isSelected ? "selected" : ""}" onclick="selectBook(${b._id})">
       <div class="row-cover">${coverHTML}</div>
       <div class="row-info">
         <div class="row-title">${esc(b.title)}</div>
-        <div class="row-author">${esc(b.author||"—")}</div>
+        <div class="row-author">${esc(b.author || "—")}</div>
       </div>
       <div class="row-right">
-        <div class="row-price">${b.price ? "₾"+b.price.toFixed(2) : "—"}</div>
+        <div class="row-price">${b.price ? "₾" + b.price.toFixed(2) : "—"}</div>
         <span class="badge ${st.cls}">${st.label}</span>
         <div class="img-dot ${imgUrl ? "has-img" : ""}" title="${imgUrl ? "სურათი ატვირთულია ✓" : "სურათი არ არის"}"></div>
       </div>
     </div>`;
-  }).join("");
-}
-
-function updateStats() {
-  const total    = allBooks.length;
-  const instock  = allBooks.filter(b=>b.quantity>0).length;
-  const withImg  = allBooks.filter(b=>imageMap[b._key]).length;
-  const noImg    = total - withImg;
-  document.getElementById("s-total").textContent    = total;
-  document.getElementById("s-instock").textContent  = instock;
-  document.getElementById("s-images").textContent   = withImg;
-  document.getElementById("s-noimages").textContent = noImg;
-}
-
-/* ══════════════════════════════════════════════
-   SELECT BOOK
-══════════════════════════════════════════════ */
-function selectBook(id) {
-  selectedBook = allBooks.find(b => b._id === id);
-  if (!selectedBook) return;
-  clearFile();
-  showSelectedCard();
-  renderList();
-  updateSaveBtn();
-  document.querySelector(".upload-panel").scrollIntoView({ behavior:"smooth", block:"nearest" });
-}
-
-function clearSelection() {
-  selectedBook = null;
-  clearFile();
-  document.getElementById("no-sel").style.display = "block";
-  document.getElementById("sel-card").classList.remove("visible");
-  updateSaveBtn();
-  renderList();
-}
-
-function showSelectedCard() {
-  const b = selectedBook;
-  const p = b._palette;
-  const imgUrl = imageMap[b._key];
-
-  document.getElementById("no-sel").style.display = "none";
-  const card = document.getElementById("sel-card");
-  card.classList.add("visible");
-
-  const coverWrap = document.getElementById("sel-cover-wrap");
-  coverWrap.innerHTML = imgUrl
-    ? `<img src="${imgUrl}" alt="">`
-    : `<div class="sel-cover-ph" style="background:${p.bg};color:${p.tx}">${esc(b.title.substring(0,10))}</div>`;
-
-  document.getElementById("sel-title-txt").textContent  = b.title;
-  document.getElementById("sel-author-txt").textContent = b.author || "";
-}
-
-/* ══════════════════════════════════════════════
-   FILE HANDLING
-══════════════════════════════════════════════ */
-const dropZone = document.getElementById("drop-zone");
-dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
-dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
-dropZone.addEventListener("drop", e => {
-  e.preventDefault();
-  dropZone.classList.remove("drag-over");
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith("image/")) handleFileInput(file);
-});
-
-function handleFileInput(file) {
-  if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
-  pendingFile = file;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById("preview-img").src = e.target.result;
-    document.getElementById("preview-name").textContent = file.name + " (" + formatSize(file.size) + ")";
-    document.getElementById("img-preview").style.display = "block";
-    updateSaveBtn();
-  };
-  reader.readAsDataURL(file);
-}
-
-function clearFile() {
-  pendingFile = null;
-  document.getElementById("file-input").value = "";
-  document.getElementById("img-preview").style.display = "none";
-  document.getElementById("preview-img").src = "";
-  updateSaveBtn();
-}
-
-function updateSaveBtn() {
-  document.getElementById("save-btn").disabled = !(selectedBook && pendingFile);
-}
-
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + " B";
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + " KB";
-  return (bytes/1024/1024).toFixed(2) + " MB";
-}
-
-/* ══════════════════════════════════════════════
-   UPLOAD TO SUPABASE STORAGE + SAVE TO DB
-══════════════════════════════════════════════ */
-async function saveImage() {
-  if (!selectedBook || !pendingFile) return;
-
-  const btn = document.getElementById("save-btn");
-  btn.disabled = true;
-  btn.textContent = "იტვირთება…";
-
-  try {
-    const ext      = pendingFile.name.split(".").pop().toLowerCase();
-    const fileName = selectedBook._key + "." + ext;
-    const filePath = fileName;
-
-    // 1. Upload to Supabase Storage
-    const uploadRes = await fetch(
-      `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${filePath}`,
-      {
-        method: "POST",
-        headers: {
-          "apikey": SUPABASE_ANON,
-          "Authorization": "Bearer " + SUPABASE_ANON,
-          "Content-Type": pendingFile.type,
-          "x-upsert": "true",
-        },
-        body: pendingFile,
-      }
-    );
-
-    if (!uploadRes.ok) {
-      const err = await uploadRes.json().catch(() => ({}));
-      throw new Error(err.message || "Upload failed");
+      }).join("");
     }
 
-    // 2. Get public URL
-    const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${filePath}`;
+    function updateStats() {
+      const total = allBooks.length;
+      const instock = allBooks.filter(b => b.quantity > 0).length;
+      const withImg = allBooks.filter(b => imageMap[b._key]).length;
+      const noImg = total - withImg;
+      document.getElementById("s-total").textContent = total;
+      document.getElementById("s-instock").textContent = instock;
+      document.getElementById("s-images").textContent = withImg;
+      document.getElementById("s-noimages").textContent = noImg;
+    }
 
-    // 3. Upsert into book_images table
-    const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/book_images`, {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON,
-        "Authorization": "Bearer " + SUPABASE_ANON,
-        "Content-Type": "application/json",
-        "Prefer": "resolution=merge-duplicates",
-      },
-      body: JSON.stringify({ book_key: selectedBook._key, image_url: publicUrl }),
+    /* ══════════════════════════════════════════════
+       SELECT BOOK
+    ══════════════════════════════════════════════ */
+    function selectBook(id) {
+      selectedBook = allBooks.find(b => b._id === id);
+      if (!selectedBook) return;
+      clearFile();
+      showSelectedCard();
+      renderList();
+      updateSaveBtn();
+      document.querySelector(".upload-panel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function clearSelection() {
+      selectedBook = null;
+      clearFile();
+      document.getElementById("no-sel").style.display = "block";
+      document.getElementById("sel-card").classList.remove("visible");
+      updateSaveBtn();
+      renderList();
+    }
+
+    function showSelectedCard() {
+      const b = selectedBook;
+      const p = b._palette;
+      const imgUrl = imageMap[b._key];
+
+      document.getElementById("no-sel").style.display = "none";
+      const card = document.getElementById("sel-card");
+      card.classList.add("visible");
+
+      const coverWrap = document.getElementById("sel-cover-wrap");
+      coverWrap.innerHTML = imgUrl
+        ? `<img src="${imgUrl}" alt="">`
+        : `<div class="sel-cover-ph" style="background:${p.bg};color:${p.tx}">${esc(b.title.substring(0, 10))}</div>`;
+
+      document.getElementById("sel-title-txt").textContent = b.title;
+      document.getElementById("sel-author-txt").textContent = b.author || "";
+    }
+
+    /* ══════════════════════════════════════════════
+       FILE HANDLING
+    ══════════════════════════════════════════════ */
+    const dropZone = document.getElementById("drop-zone");
+    dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      dropZone.classList.remove("drag-over");
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith("image/")) handleFileInput(file);
     });
 
-    if (!dbRes.ok) {
-      const err = await dbRes.json().catch(() => ({}));
-      throw new Error(err.message || "DB save failed");
+    function handleFileInput(file) {
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
+      pendingFile = file;
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById("preview-img").src = e.target.result;
+        document.getElementById("preview-name").textContent = file.name + " (" + formatSize(file.size) + ")";
+        document.getElementById("img-preview").style.display = "block";
+        updateSaveBtn();
+      };
+      reader.readAsDataURL(file);
     }
 
-    // 4. Update local image map
-    imageMap[selectedBook._key] = publicUrl;
+    function clearFile() {
+      pendingFile = null;
+      document.getElementById("file-input").value = "";
+      document.getElementById("img-preview").style.display = "none";
+      document.getElementById("preview-img").src = "";
+      updateSaveBtn();
+    }
 
-    showToast(`✓ სურათი შეინახა: "${selectedBook.title}"`, "ok");
-    showSelectedCard(); // refresh cover preview
-    clearFile();
-    renderList();
-    updateStats();
+    function updateSaveBtn() {
+      document.getElementById("save-btn").disabled = !(selectedBook && pendingFile);
+    }
 
-  } catch(e) {
-    console.error(e);
-    showToast("❌ შეცდომა: " + e.message, "err");
-  }
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / 1024 / 1024).toFixed(2) + " MB";
+    }
 
-  btn.disabled = false;
-  btn.textContent = "სურათის შენახვა";
-  updateSaveBtn();
-}
+    /* ══════════════════════════════════════════════
+       UPLOAD TO SUPABASE STORAGE + SAVE TO DB
+    ══════════════════════════════════════════════ */
+    async function saveImage() {
+      if (!selectedBook || !pendingFile) return;
 
-/* ══════════════════════════════════════════════
-   HELPERS
-══════════════════════════════════════════════ */
-function stockInfo(qty) {
-  if (qty===0) return { label:"ამოიწურა", cls:"badge-out" };
-  if (qty<=3)  return { label:"მცირეა",   cls:"badge-low" };
-  return               { label:"მარაგშია", cls:"badge-in"  };
-}
+      const btn = document.getElementById("save-btn");
+      btn.disabled = true;
+      btn.textContent = "იტვირთება…";
 
-function esc(s) {
-  if (!s) return "";
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
+      try {
+        const ext = pendingFile.name.split(".").pop().toLowerCase();
+        const fileName = selectedBook._key + "." + ext;
+        const filePath = fileName;
 
-function showToast(msg, type) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.className = "toast " + type;
-  t.style.display = "block";
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => { t.style.display = "none"; }, 4000);
-}
+        // 1. Upload to Supabase Storage
+        const uploadRes = await fetch(
+          `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${filePath}`,
+          {
+            method: "POST",
+            headers: {
+              "apikey": SUPABASE_ANON,
+              "Authorization": "Bearer " + SUPABASE_ANON,
+              "Content-Type": pendingFile.type,
+              "x-upsert": "true",
+            },
+            body: pendingFile,
+          }
+        );
 
-/* ══════════════════════════════════════════════
-   INIT
-══════════════════════════════════════════════ */
-checkSession();
-</script>
+        if (!uploadRes.ok) {
+          const err = await uploadRes.json().catch(() => ({}));
+          throw new Error(err.message || "Upload failed");
+        }
+
+        // 2. Get public URL
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${filePath}`;
+
+        // 3. Upsert into book_images table
+        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/book_images`, {
+          method: "POST",
+          headers: {
+            "apikey": SUPABASE_ANON,
+            "Authorization": "Bearer " + SUPABASE_ANON,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates",
+          },
+          body: JSON.stringify({ book_key: selectedBook._key, image_url: publicUrl }),
+        });
+
+        if (!dbRes.ok) {
+          const err = await dbRes.json().catch(() => ({}));
+          throw new Error(err.message || "DB save failed");
+        }
+
+        // 4. Update local image map
+        imageMap[selectedBook._key] = publicUrl;
+
+        showToast(`✓ სურათი შეინახა: "${selectedBook.title}"`, "ok");
+        showSelectedCard(); // refresh cover preview
+        clearFile();
+        renderList();
+        updateStats();
+
+      } catch (e) {
+        console.error(e);
+        showToast("❌ შეცდომა: " + e.message, "err");
+      }
+
+      btn.disabled = false;
+      btn.textContent = "სურათის შენახვა";
+      updateSaveBtn();
+    }
+
+    /* ══════════════════════════════════════════════
+       HELPERS
+    ══════════════════════════════════════════════ */
+    function stockInfo(qty) {
+      if (qty === 0) return { label: "ამოიწურა", cls: "badge-out" };
+      if (qty <= 3) return { label: "მცირეა", cls: "badge-low" };
+      return { label: "მარაგშია", cls: "badge-in" };
+    }
+
+    function esc(s) {
+      if (!s) return "";
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function showToast(msg, type) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.className = "toast " + type;
+      t.style.display = "block";
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => { t.style.display = "none"; }, 4000);
+    }
+
+    /* ══════════════════════════════════════════════
+       INIT
+    ══════════════════════════════════════════════ */
+    checkSession();
+  </script>
 </body>
+
 </html>
