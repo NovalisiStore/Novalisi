@@ -6,6 +6,10 @@
 // File → Share → Publish to web → Sheet1 → CSV → Publish → copy URL
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
 
+// Supabase — for book cover images uploaded via admin panel
+const SUPABASE_URL  = "https://umjsamfyisrdvyyvcooo.supabase.co";
+const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtanNhbWZ5aXNyZHZ5eXZjb29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTMzMTYsImV4cCI6MjA5NTM2OTMxNn0.xGCj7Bx3VoU5HsRUz-_Sbsb7chlP7bQsk60t23nset8";
+
 const STORE = {
     name: "ნოვალისი წიგნები",
     phone: "+995 555 000 000",
@@ -118,6 +122,7 @@ const TX = {
    STATE
    ========================================================== */
 let allBooks = [];
+let imageMap = {};  // bookKey → Supabase public image URL
 let currentLang = "ka";
 let gridGenre = "";
 let catGenre = "";
@@ -249,10 +254,35 @@ async function loadBooks() {
     const csv = await fetchCSV(SHEET_CSV_URL);
     if (csv) {
         const parsed = parseCSV(csv);
-        if (parsed.length > 0) { allBooks = parsed; onLoaded(); return; }
+        if (parsed.length > 0) {
+            allBooks = parsed;
+            await loadImageMap();
+            onLoaded();
+            return;
+        }
     }
     // Show empty-state if sheet is unreachable or empty
     showEmptyState();
+}
+
+/* ==========================================================
+   LOAD IMAGE MAP FROM SUPABASE
+   ========================================================== */
+async function loadImageMap() {
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/book_images?select=book_key,image_url`, {
+            headers: {
+                "apikey": SUPABASE_ANON,
+                "Authorization": "Bearer " + SUPABASE_ANON,
+            }
+        });
+        if (!res.ok) return;
+        const rows = await res.json();
+        imageMap = {};
+        rows.forEach(r => { imageMap[r.book_key] = r.image_url; });
+    } catch(e) {
+        console.warn("Image map load failed:", e);
+    }
 }
 
 function showEmptyState() {
@@ -288,6 +318,7 @@ function parseCSV(text) {
         b.original_price = parseFloat(b.original_price) || 0;  // >0 means discounted
         b._palette = PALETTES[books.length % PALETTES.length];
         b._id = books.length;
+        b._key = (b.isbn || b.title).toLowerCase().replace(/\s+/g,"_").replace(/[^a-z0-9_\u10D0-\u10FF]/g,"");
         books.push(b);
     }
     return books;
@@ -492,14 +523,18 @@ function bookCard(b, small) {
             : `<span class="book-price">₾${b.price.toFixed(2)}</span>`)
         : `<span class="book-price">—</span>`;
     const cls = small ? "book-card book-card--small" : "book-card";
+    const imgUrl = imageMap[b._key];
+    const coverInner = imgUrl
+        ? `<img src="${imgUrl}" alt="${esc(b.title)}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
+        : `<div class="book-spine" style="background:${p.tx};opacity:0.4"></div>
+           <div class="book-cover-text" style="color:${p.tx}">
+             <div class="bc-title">${esc(b.title)}</div>
+             <div class="bc-author">${esc(b.author)}</div>
+           </div>`;
     return `
   <div class="${cls}" onclick="openBook(${b._id})">
     <div class="book-cover" style="background:${p.bg}">
-      <div class="book-spine" style="background:${p.tx};opacity:0.4"></div>
-      <div class="book-cover-text" style="color:${p.tx}">
-        <div class="bc-title">${esc(b.title)}</div>
-        <div class="bc-author">${esc(b.author)}</div>
-      </div>
+      ${coverInner}
       ${isDiscount ? `<div class="discount-ribbon">−${discountPct}%</div>` : ""}
       <div class="book-cover-overlay">
         <span>${t("viewBook")}</span>
@@ -532,9 +567,16 @@ function openBook(id) {
     const p = b._palette;
     const st = stockBadge(b.quantity);
 
+    const imgUrl = imageMap[b._key];
+    const modalCover = imgUrl
+        ? `<div class="modal-cover" style="background:${p.bg};padding:0;overflow:hidden">
+             <img src="${imgUrl}" alt="${esc(b.title)}" style="width:100%;height:100%;object-fit:cover;display:block">
+           </div>`
+        : `<div class="modal-cover" style="background:${p.bg};color:${p.tx}">${esc(b.title)}</div>`;
+
     $("modal-content").innerHTML = `
   <div class="modal-top">
-    <div class="modal-cover" style="background:${p.bg};color:${p.tx}">${esc(b.title)}</div>
+    ${modalCover}
     <div class="modal-info">
       <div class="modal-title" style="color:var(--ink)">${esc(b.title)}</div>
       <div class="modal-author-line">${esc(b.author)}</div>
