@@ -55,6 +55,50 @@
       -webkit-font-smoothing: antialiased;
     }
 
+
+    /* ── TABS ── */
+    .admin-tabs {
+      display: flex;
+      background: rgba(11, 21, 16, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0 2.5rem;
+    }
+
+    .admin-tab {
+      padding: 0 1.5rem;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .admin-tab:hover {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .admin-tab.active {
+      color: var(--cream);
+      border-bottom-color: var(--cream);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
     /* ── LOGIN ── */
     #login-screen {
       min-height: 100vh;
@@ -836,7 +880,7 @@
       padding: 11px;
       background: transparent;
       color: var(--red);
-      border: 1px solid rgba(192,57,43,0.3);
+      border: 1px solid rgba(192, 57, 43, 0.3);
       border-radius: var(--r);
       font-family: var(--sans);
       font-size: 12px;
@@ -846,8 +890,15 @@
       transition: background 0.2s, border-color 0.2s;
       display: none;
     }
-    .delete-btn:hover { background: var(--red-pale); border-color: var(--red); }
-    .delete-btn.visible { display: block; }
+
+    .delete-btn:hover {
+      background: var(--red-pale);
+      border-color: var(--red);
+    }
+
+    .delete-btn.visible {
+      display: block;
+    }
 
     /* toast */
     .toast {
@@ -915,7 +966,8 @@
   <!-- LOGIN SCREEN -->
   <div id="login-screen">
     <div class="login-card">
-      <div class="login-logo">ნოვალისი <em>წიგნები</em></div>
+      <div class="login-logo" onclick="window.location.href='index.html'" style="cursor: pointer;"
+        title="მთავარ გვერდზე დაბრუნება">ნოვალისი <em>წიგნები</em></div>
       <div class="login-subtitle">Admin Panel</div>
       <label class="login-label">პაროლი</label>
       <input class="login-input" type="password" id="pw-input" placeholder="••••••••••••"
@@ -930,9 +982,10 @@
 
     <!-- NAV -->
     <nav class="admin-nav">
-      <div class="admin-logo">ნოვალისი <em>წიგნები</em> <span>Admin</span></div>
+      <div class="admin-logo" onclick="window.location.href='index.html'" style="cursor:pointer"
+        title="მთავარ გვერდზე დაბრუნება">ნოვალისი <em>წიგნები</em> <span>Admin</span></div>
       <div class="nav-right">
-        <button class="sync-btn" onclick="reloadBooks()">
+        <button class="sync-btn" onclick="reloadCurrentTab()">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
             <path d="M14 8A6 6 0 1 1 8 2M14 2v4h-4" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -942,97 +995,200 @@
       </div>
     </nav>
 
-    <!-- STATS -->
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-num" id="s-total">—</div>
-        <div class="stat-lbl">სულ წიგნი</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" id="s-instock">—</div>
-        <div class="stat-lbl">მარაგშია</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" id="s-images">—</div>
-        <div class="stat-lbl">სურათი ატვირთული</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num" id="s-noimages">—</div>
-        <div class="stat-lbl">სურათის გარეშე</div>
-      </div>
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="tab-books-btn" onclick="switchTab('books')">📚 წიგნები</button>
+      <button class="admin-tab" id="tab-stat-btn" onclick="switchTab('stat')">✏️ კანცელარია</button>
     </div>
 
-    <!-- MAIN -->
-    <div class="admin-body">
+    <!-- ═══ BOOKS TAB ═══ -->
+    <div class="tab-panel active" id="tab-books">
 
-      <!-- LEFT: SEARCH + LIST -->
-      <div class="panel">
-        <div class="panel-head">
-          <div class="panel-title">წიგნების ძიება</div>
-          <div class="search-wrap">
-            <span class="search-icon">⌕</span>
-            <input type="text" id="book-search" placeholder="სათაური ან ავტორი…" oninput="filterList()">
-          </div>
-          <div class="search-meta">
-            <span id="list-count"></span>
-            <div class="sheets-status">
-              <div class="dot loading" id="sheets-dot"></div>
-              <span id="sheets-label">Google Sheets…</span>
-            </div>
-          </div>
+      <!-- STATS -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-num" id="s-total">—</div>
+          <div class="stat-lbl">სულ წიგნი</div>
         </div>
-        <div class="books-list" id="books-list">
-          <div class="list-state">
-            <div class="spinner"></div>იტვირთება…
-          </div>
+        <div class="stat-item">
+          <div class="stat-num" id="s-instock">—</div>
+          <div class="stat-lbl">მარაგშია</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="s-images">—</div>
+          <div class="stat-lbl">სურათი ატვირთული</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="s-noimages">—</div>
+          <div class="stat-lbl">სურათის გარეშე</div>
         </div>
       </div>
 
-      <!-- RIGHT: UPLOAD -->
-      <div class="upload-panel">
-        <div class="upload-head">
-          <div class="upload-title">სურათის ატვირთვა</div>
-          <div class="upload-sub">აირჩიეთ წიგნი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
-        </div>
+      <!-- MAIN -->
+      <div class="admin-body">
 
-        <!-- no book selected -->
-        <div class="no-selection" id="no-sel">
-          <div class="arrow">←</div>
-          <div>პირველ რიგში აირჩიეთ წიგნი</div>
-        </div>
-
-        <!-- selected book info -->
-        <div class="selected-book-card" id="sel-card">
-          <div class="sel-cover" id="sel-cover-wrap"></div>
-          <div class="sel-info">
-            <div class="sel-title" id="sel-title-txt"></div>
-            <div class="sel-author" id="sel-author-txt"></div>
-          </div>
-          <button class="sel-clear" onclick="clearSelection()" title="გაუქმება">✕</button>
-        </div>
-
-        <div class="upload-body">
-          <div class="drop-zone" id="drop-zone">
-            <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
-            <div class="drop-icon">📷</div>
-            <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
-            <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
-          </div>
-
-          <div class="img-preview" id="img-preview">
-            <img id="preview-img" src="" alt="preview">
-            <div class="img-preview-meta">
-              <span id="preview-name"></span>
-              <button class="preview-remove" onclick="clearFile()">✕ წაშლა</button>
+        <!-- LEFT: SEARCH + LIST -->
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-title">წიგნების ძიება</div>
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input type="text" id="book-search" placeholder="სათაური ან ავტორი…" oninput="filterList()">
+            </div>
+            <div class="search-meta">
+              <span id="list-count"></span>
+              <div class="sheets-status">
+                <div class="dot loading" id="sheets-dot"></div>
+                <span id="sheets-label">Google Sheets…</span>
+              </div>
             </div>
           </div>
+          <div class="books-list" id="books-list">
+            <div class="list-state">
+              <div class="spinner"></div>იტვირთება…
+            </div>
+          </div>
+        </div>
 
-          <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
-          <button class="delete-btn" id="delete-btn" onclick="deleteImage()">🗑 სურათის წაშლა</button>
+        <!-- RIGHT: UPLOAD -->
+        <div class="upload-panel">
+          <div class="upload-head">
+            <div class="upload-title">სურათის ატვირთვა</div>
+            <div class="upload-sub">აირჩიეთ წიგნი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
+          </div>
+
+          <!-- no book selected -->
+          <div class="no-selection" id="no-sel">
+            <div class="arrow">←</div>
+            <div>პირველ რიგში აირჩიეთ წიგნი</div>
+          </div>
+
+          <!-- selected book info -->
+          <div class="selected-book-card" id="sel-card">
+            <div class="sel-cover" id="sel-cover-wrap"></div>
+            <div class="sel-info">
+              <div class="sel-title" id="sel-title-txt"></div>
+              <div class="sel-author" id="sel-author-txt"></div>
+            </div>
+            <button class="sel-clear" onclick="clearSelection()" title="გაუქმება">✕</button>
+          </div>
+
+          <div class="upload-body">
+            <div class="drop-zone" id="drop-zone">
+              <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
+              <div class="drop-icon">📷</div>
+              <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
+              <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+            </div>
+
+            <div class="img-preview" id="img-preview">
+              <img id="preview-img" src="" alt="preview">
+              <div class="img-preview-meta">
+                <span id="preview-name"></span>
+                <button class="preview-remove" onclick="clearFile()">✕ წაშლა</button>
+              </div>
+            </div>
+
+            <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
+            <button class="delete-btn" id="delete-btn" onclick="deleteImage()">🗑 სურათის წაშლა</button>
+          </div>
+        </div>
+
+      </div><!-- /admin-body -->
+    </div><!-- /tab-books -->
+
+    <!-- ═══ STATIONERY TAB ═══ -->
+    <div class="tab-panel" id="tab-stat">
+
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-num" id="ss-total">—</div>
+          <div class="stat-lbl">სულ პროდუქტი</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="ss-instock">—</div>
+          <div class="stat-lbl">მარაგშია</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="ss-images">—</div>
+          <div class="stat-lbl">სურათი ატვირთული</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="ss-noimages">—</div>
+          <div class="stat-lbl">სურათის გარეშე</div>
         </div>
       </div>
 
-    </div><!-- /admin-body -->
+      <div class="admin-body">
+
+        <!-- LEFT: STATIONERY SEARCH + LIST -->
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-title">კანცელარიის ძიება</div>
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input type="text" id="stat-search" placeholder="სახელი ან კატეგორია…" oninput="filterStatList()">
+            </div>
+            <div class="search-meta">
+              <span id="stat-list-count"></span>
+              <div class="sheets-status">
+                <div class="dot loading" id="stat-dot"></div>
+                <span id="stat-sheets-label">Google Sheets…</span>
+              </div>
+            </div>
+          </div>
+          <div class="books-list" id="stat-list">
+            <div class="list-state">
+              <div class="spinner"></div>იტვირთება…
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: UPLOAD FOR STATIONERY -->
+        <div class="upload-panel">
+          <div class="upload-head">
+            <div class="upload-title">სურათის ატვირთვა</div>
+            <div class="upload-sub">აირჩიეთ პროდუქტი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
+          </div>
+
+          <div class="no-selection" id="stat-no-sel">
+            <div class="arrow">←</div>
+            <div>პირველ რიგში აირჩიეთ პროდუქტი</div>
+          </div>
+
+          <div class="selected-book-card" id="stat-sel-card">
+            <div class="sel-cover" id="stat-sel-cover"></div>
+            <div class="sel-info">
+              <div class="sel-title" id="stat-sel-name"></div>
+              <div class="sel-author" id="stat-sel-cat"></div>
+            </div>
+            <button class="sel-clear" onclick="clearStatSelection()" title="გაუქმება">✕</button>
+          </div>
+
+          <div class="upload-body">
+            <div class="drop-zone" id="stat-drop-zone">
+              <input type="file" id="stat-file-input" accept="image/*" onchange="handleStatFile(this.files[0])">
+              <div class="drop-icon">📷</div>
+              <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
+              <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+            </div>
+
+            <div class="img-preview" id="stat-img-preview">
+              <img id="stat-preview-img" src="" alt="preview">
+              <div class="img-preview-meta">
+                <span id="stat-preview-name"></span>
+                <button class="preview-remove" onclick="clearStatFile()">✕ წაშლა</button>
+              </div>
+            </div>
+
+            <button class="save-btn" id="stat-save-btn" onclick="saveStatImage()" disabled>სურათის შენახვა</button>
+            <button class="delete-btn" id="stat-delete-btn" onclick="deleteStatImage()">🗑 სურათის წაშლა</button>
+          </div>
+        </div>
+
+      </div><!-- /admin-body stat -->
+    </div><!-- /tab-stat -->
+
   </div><!-- /admin-app -->
 
   <div class="toast" id="toast"></div>
@@ -1044,8 +1200,23 @@
     const SUPABASE_URL = "https://umjsamfyisrdvyyvcooo.supabase.co";
     const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtanNhbWZ5aXNyZHZ5eXZjb29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTMzMTYsImV4cCI6MjA5NTM2OTMxNn0.xGCj7Bx3VoU5HsRUz-_Sbsb7chlP7bQsk60t23nset8";
     const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
+    // ★ Replace STATIONERY_GID with your stationery sheet's gid number
+    const STAT_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=1878651999&single=true&output=csv";
     const BUCKET = "book-images";
+    const STAT_BUCKET = "stationery-images";
     const SESSION_KEY = "novalisi_admin_token";
+
+    /* Georgian → Latin transliteration for safe storage keys */
+    const GEO_MAP = {
+      'ა': 'a', 'ბ': 'b', 'გ': 'g', 'დ': 'd', 'ე': 'e', 'ვ': 'v', 'ზ': 'z', 'თ': 't',
+      'ი': 'i', 'კ': 'k', 'ლ': 'l', 'მ': 'm', 'ნ': 'n', 'ო': 'o', 'პ': 'p', 'ჟ': 'zh',
+      'რ': 'r', 'ს': 's', 'ტ': 't', 'უ': 'u', 'ფ': 'f', 'ქ': 'q', 'ღ': 'gh', 'ყ': 'y',
+      'შ': 'sh', 'ჩ': 'ch', 'ც': 'ts', 'ძ': 'dz', 'წ': 'ts', 'ჭ': 'ch', 'ხ': 'kh', 'ჯ': 'j', 'ჰ': 'h'
+    };
+    function translitGeo(s) { return s.split('').map(c => GEO_MAP[c] ?? c).join(''); }
+    function safeKey(s) {
+      return translitGeo(s).toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+    }
 
     /* ══════════════════════════════════════════════
        STATE
@@ -1055,6 +1226,19 @@
     let selectedBook = null;
     let pendingFile = null;
     let imageMap = {}; // bookKey → public image URL
+
+    // ── Stationery state ──
+    let allStatItems = [];
+    let filteredStatItems = [];
+    let selectedStatItem = null;
+    let statPendingFile = null;
+    let statImageMap = {};
+    let currentAdminTab = "books";
+
+    function statItemKey(it) {
+      const key = safeKey(it.name || "");
+      return "stat__" + (key || "item_" + it._id);
+    }
 
     const PALETTES = [
       { bg: "#1a2744", tx: "#e8dfc8" }, { bg: "#2d4a3e", tx: "#f0ead6" },
@@ -1068,7 +1252,9 @@
     ];
 
     function bookKey(b) {
-      return (b.isbn || b.title).toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_\u10D0-\u10FF]/g, "");
+      const raw = b.isbn || b.title;
+      const key = safeKey(raw);
+      return key || "book_" + b._id;
     }
 
     /* ══════════════════════════════════════════════
@@ -1125,11 +1311,13 @@
       document.getElementById("admin-app").style.display = "block";
       loadBooks();
       loadImageMap();
+      loadStatItems();
+      loadStatImageMap();
     }
 
     function doLogout() {
       sessionStorage.removeItem(SESSION_KEY);
-      location.reload();
+      window.location.href = "index.html";
     }
 
     /* ══════════════════════════════════════════════
@@ -1516,7 +1704,7 @@
         updateStats();
         updateSaveBtn();
 
-      } catch(e) {
+      } catch (e) {
         console.error(e);
         showToast("❌ შეცდომა: " + e.message, "err");
       }
@@ -1549,8 +1737,331 @@
     }
 
     /* ══════════════════════════════════════════════
+       TAB SWITCHING
+    ══════════════════════════════════════════════ */
+    function switchTab(tab) {
+      currentAdminTab = tab;
+      document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + tab + '-btn').classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function reloadCurrentTab() {
+      if (currentAdminTab === 'books') reloadBooks();
+      else { reloadStatItems(); loadStatImageMap(); }
+    }
+
+    /* ══════════════════════════════════════════════
+       LOAD STATIONERY FROM SHEETS
+    ══════════════════════════════════════════════ */
+    async function loadStatItems() {
+      if (STAT_SHEET_CSV_URL.includes("STATIONERY_GID")) {
+        setStatDot("err", "URL დაყენებული არ არის");
+        document.getElementById("stat-list").innerHTML =
+          '<div class="list-state">⚠️ შეცვალეთ STATIONERY_GID admin.html-ში (~1050 ხაზი)</div>';
+        updateStatStats();
+        return;
+      }
+      setStatDot("loading", "Google Sheets…");
+      const csv = await fetchCSV(STAT_SHEET_CSV_URL);
+      if (!csv) { setStatDot("err", "ჩატვირთვა ვერ მოხდა"); return; }
+      allStatItems = parseStatCSV(csv);
+      filteredStatItems = allStatItems;
+      setStatDot("ok", allStatItems.length + " პროდუქტი ჩაიტვირთა");
+      renderStatList();
+      updateStatStats();
+    }
+
+    async function reloadStatItems() {
+      allStatItems = []; filteredStatItems = [];
+      document.getElementById("stat-list").innerHTML =
+        '<div class="list-state"><div class="spinner"></div>განახლება…</div>';
+      await loadStatItems();
+    }
+
+    function parseStatCSV(text) {
+      const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n")
+        .split("\n").map(l => l.trim()).filter(Boolean);
+      if (lines.length < 2) return [];
+      const headers = splitLine(lines[0]).map(h => h.toLowerCase().trim());
+      const items = [];
+      for (let i = 1; i < lines.length; i++) {
+        const vals = splitLine(lines[i]);
+        const it = {};
+        headers.forEach((h, idx) => { it[h] = (vals[idx] || "").trim(); });
+        if (!it.name) continue;
+        it.quantity = parseInt(it.quantity) || 0;
+        it.price = parseFloat((it.price || "0").replace(",", ".")) || 0;
+        it.original_price = parseFloat((it.original_price || "0").replace(",", ".")) || 0;
+        it._id = items.length;
+        it._palette = PALETTES[items.length % PALETTES.length];
+        it._key = statItemKey(it);
+        items.push(it);
+      }
+      return items;
+    }
+
+    function setStatDot(state, label) {
+      const dot = document.getElementById("stat-dot");
+      const lbl = document.getElementById("stat-sheets-label");
+      if (dot) dot.className = "dot " + state;
+      if (lbl) lbl.textContent = label;
+    }
+
+    /* ══════════════════════════════════════════════
+       LOAD STATIONERY IMAGE MAP
+       Uses dedicated stationery_images table.
+    ══════════════════════════════════════════════ */
+    async function loadStatImageMap() {
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/stationery_images?select=item_key,image_url`,
+          { headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON } }
+        );
+        if (!res.ok) return;
+        const rows = await res.json();
+        statImageMap = {};
+        rows.forEach(r => { statImageMap[r.item_key] = r.image_url; });
+        renderStatList();
+        updateStatStats();
+      } catch (e) { console.warn("stat image map error:", e); }
+    }
+
+    /* ══════════════════════════════════════════════
+       RENDER STATIONERY LIST
+    ══════════════════════════════════════════════ */
+    function filterStatList() {
+      const q = (document.getElementById("stat-search")?.value || "").toLowerCase().trim();
+      filteredStatItems = q
+        ? allStatItems.filter(it =>
+          it.name.toLowerCase().includes(q) ||
+          (it.category || "").toLowerCase().includes(q))
+        : allStatItems;
+      renderStatList();
+    }
+
+    function renderStatList() {
+      const container = document.getElementById("stat-list");
+      const countEl = document.getElementById("stat-list-count");
+      if (!allStatItems.length) return;
+      if (countEl) countEl.textContent = filteredStatItems.length + " პროდუქტი";
+      if (!filteredStatItems.length) {
+        container.innerHTML = '<div class="list-state">📭 ვერ მოიძებნა</div>';
+        return;
+      }
+      container.innerHTML = filteredStatItems.map(it => {
+        const p = it._palette;
+        const imgUrl = statImageMap[it._key];
+        const isSelected = selectedStatItem && selectedStatItem._id === it._id;
+        const st = stockInfo(it.quantity);
+        const coverHTML = imgUrl
+          ? `<img src="${imgUrl}" alt="">`
+          : `<div class="row-cover-ph" style="background:${p.bg};color:${p.tx}">✏️</div>`;
+        return `<div class="book-row${isSelected ? " selected" : ""}" onclick="selectStatItem(${it._id})">
+          <div class="row-cover">${coverHTML}</div>
+          <div class="row-info">
+            <div class="row-title">${esc(it.name)}</div>
+            <div class="row-author">${esc(it.category || "—")}</div>
+          </div>
+          <div class="row-right">
+            <div class="row-price">${it.price ? "₾" + it.price.toFixed(2) : "—"}</div>
+            <span class="badge ${st.cls}">${st.label}</span>
+            <div class="img-dot${imgUrl ? " has-img" : ""}" title="${imgUrl ? "სურათი ✓" : "სურათი არ არის"}"></div>
+          </div>
+        </div>`;
+      }).join("");
+    }
+
+    function updateStatStats() {
+      const total = allStatItems.length;
+      const instock = allStatItems.filter(it => it.quantity > 0).length;
+      const withImg = allStatItems.filter(it => statImageMap[it._key]).length;
+      const el = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
+      el("ss-total", total); el("ss-instock", instock);
+      el("ss-images", withImg); el("ss-noimages", total - withImg);
+    }
+
+    /* ══════════════════════════════════════════════
+       SELECT ITEM
+    ══════════════════════════════════════════════ */
+    function selectStatItem(id) {
+      selectedStatItem = allStatItems.find(it => it._id === id);
+      if (!selectedStatItem) return;
+      clearStatFile();
+      renderStatSelectedCard();
+      renderStatList();
+      updateStatSaveBtn();
+    }
+
+    function clearStatSelection() {
+      selectedStatItem = null;
+      clearStatFile();
+      document.getElementById("stat-no-sel").style.display = "block";
+      document.getElementById("stat-sel-card").classList.remove("visible");
+      updateStatSaveBtn();
+      renderStatList();
+    }
+
+    function renderStatSelectedCard() {
+      const it = selectedStatItem;
+      const p = it._palette;
+      const imgUrl = statImageMap[it._key];
+      document.getElementById("stat-no-sel").style.display = "none";
+      document.getElementById("stat-sel-card").classList.add("visible");
+      const wrap = document.getElementById("stat-sel-cover");
+      wrap.innerHTML = imgUrl
+        ? `<img src="${imgUrl}" alt="">`
+        : `<div class="sel-cover-ph" style="background:${p.bg};color:${p.tx}">✏️</div>`;
+      document.getElementById("stat-sel-name").textContent = it.name;
+      document.getElementById("stat-sel-cat").textContent = it.category || "";
+    }
+
+    /* ══════════════════════════════════════════════
+       FILE HANDLING
+    ══════════════════════════════════════════════ */
+    function initStatDropZone() {
+      const dz = document.getElementById("stat-drop-zone");
+      if (!dz) return;
+      dz.addEventListener("dragover", e => { e.preventDefault(); dz.classList.add("drag-over"); });
+      dz.addEventListener("dragleave", () => dz.classList.remove("drag-over"));
+      dz.addEventListener("drop", e => {
+        e.preventDefault(); dz.classList.remove("drag-over");
+        const f = e.dataTransfer.files[0];
+        if (f && f.type.startsWith("image/")) handleStatFile(f);
+      });
+    }
+
+    function handleStatFile(file) {
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
+      statPendingFile = file;
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById("stat-preview-img").src = e.target.result;
+        document.getElementById("stat-preview-name").textContent = file.name + " (" + formatSize(file.size) + ")";
+        document.getElementById("stat-img-preview").style.display = "block";
+        updateStatSaveBtn();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearStatFile() {
+      statPendingFile = null;
+      const fi = document.getElementById("stat-file-input");
+      if (fi) fi.value = "";
+      const prev = document.getElementById("stat-img-preview");
+      if (prev) prev.style.display = "none";
+      const img = document.getElementById("stat-preview-img");
+      if (img) img.src = "";
+      updateStatSaveBtn();
+    }
+
+    function updateStatSaveBtn() {
+      const saveBtn = document.getElementById("stat-save-btn");
+      const delBtn = document.getElementById("stat-delete-btn");
+      if (saveBtn) saveBtn.disabled = !(selectedStatItem && statPendingFile);
+      if (delBtn) {
+        if (selectedStatItem && statImageMap[selectedStatItem._key])
+          delBtn.classList.add("visible");
+        else
+          delBtn.classList.remove("visible");
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       SAVE STATIONERY IMAGE
+       Uses stationery-images bucket + stationery_images table.
+    ══════════════════════════════════════════════ */
+    async function saveStatImage() {
+      if (!selectedStatItem || !statPendingFile) return;
+      const btn = document.getElementById("stat-save-btn");
+      btn.disabled = true; btn.textContent = "იტვირთება…";
+      try {
+        const ext = statPendingFile.name.split(".").pop().toLowerCase();
+        const filePath = selectedStatItem._key + "." + ext;
+
+        const uploadRes = await fetch(
+          `${SUPABASE_URL}/storage/v1/object/${STAT_BUCKET}/${filePath}`,
+          {
+            method: "POST",
+            headers: {
+              "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON,
+              "Content-Type": statPendingFile.type, "x-upsert": "true"
+            },
+            body: statPendingFile
+          }
+        );
+        if (!uploadRes.ok) {
+          const e = await uploadRes.json().catch(() => ({}));
+          throw new Error(e.message || "Upload failed");
+        }
+
+        const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${STAT_BUCKET}/${filePath}`;
+
+        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/stationery_images`, {
+          method: "POST",
+          headers: {
+            "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON,
+            "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates"
+          },
+          body: JSON.stringify({ item_key: selectedStatItem._key, image_url: publicUrl })
+        });
+        if (!dbRes.ok) {
+          const e = await dbRes.json().catch(() => ({}));
+          throw new Error(e.message || "DB save failed");
+        }
+
+        statImageMap[selectedStatItem._key] = publicUrl;
+        showToast(`✓ სურათი შეინახა: "${selectedStatItem.name}"`, "ok");
+        renderStatSelectedCard(); clearStatFile(); renderStatList(); updateStatStats();
+      } catch (e) {
+        console.error(e); showToast("❌ შეცდომა: " + e.message, "err");
+      }
+      btn.disabled = false; btn.textContent = "სურათის შენახვა"; updateStatSaveBtn();
+    }
+
+    /* ══════════════════════════════════════════════
+       DELETE STATIONERY IMAGE
+    ══════════════════════════════════════════════ */
+    async function deleteStatImage() {
+      if (!selectedStatItem || !statImageMap[selectedStatItem._key]) return;
+      if (!confirm(`"${selectedStatItem.name}" — სურათი წაიშლება. დარწმუნებული ხართ?`)) return;
+      const delBtn = document.getElementById("stat-delete-btn");
+      delBtn.disabled = true; delBtn.textContent = "იშლება…";
+      const key = selectedStatItem._key;
+      const imgUrl = statImageMap[key];
+      try {
+        const ext = imgUrl.split(".").pop().split("?")[0];
+        const filePath = key + "." + ext;
+        await fetch(`${SUPABASE_URL}/storage/v1/object/${STAT_BUCKET}/${filePath}`, {
+          method: "DELETE",
+          headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON }
+        });
+        const dbRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/stationery_images?item_key=eq.${encodeURIComponent(key)}`,
+          {
+            method: "DELETE",
+            headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON }
+          }
+        );
+        if (!dbRes.ok) {
+          const e = await dbRes.json().catch(() => ({}));
+          throw new Error(e.message || "DB delete failed");
+        }
+        delete statImageMap[key];
+        showToast(`🗑 სურათი წაიშალა: "${selectedStatItem.name}"`, "ok");
+        renderStatSelectedCard(); renderStatList(); updateStatStats(); updateStatSaveBtn();
+      } catch (e) {
+        console.error(e); showToast("❌ შეცდომა: " + e.message, "err");
+      }
+      delBtn.disabled = false; delBtn.textContent = "🗑 სურათის წაშლა";
+    }
+
+    /* ══════════════════════════════════════════════
        INIT
     ══════════════════════════════════════════════ */
+    document.addEventListener("DOMContentLoaded", initStatDropZone);
     checkSession();
   </script>
 </body>
