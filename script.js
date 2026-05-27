@@ -68,7 +68,7 @@ const TX = {
         inStock: "მარაგშია", lowStock: "მცირე რაოდენობით", outOfStock: "ამოიწურა",
         books: (n) => `${n} წიგნი`,
         orderMsg: (title, author) => `გთხოვთ შემინახოთ: "${title}" — ${author}`,
-        footer: (yr, city) => `© ${yr} ნოვალისი წიგნები · ${city}`,
+        footer: (yr, city) => `© ${yr} ნოვალისი წიგნები · ${city} · შექმნილია <span class="vakho-credit" title="+995 551 03 47 47">VakhoDev</span>-ის მიერ`,
         sortDefault: "დალაგება",
         sortPriceAsc: "ფასი: ↑ დაბლიდან",
         sortPriceDesc: "ფასი: ↓ მაღლიდან",
@@ -158,7 +158,7 @@ const TX = {
         inStock: "In stock", lowStock: "Low stock", outOfStock: "Out of stock",
         books: (n) => `${n} book${n !== 1 ? "s" : ""}`,
         orderMsg: (title, author) => TX.ka.orderMsg(title, author),
-        footer: (yr, city) => `© ${yr} Novalisi Books · ${city}`,
+        footer: (yr, city) => `© ${yr} Novalisi Books · ${city} · Made by <span class="vakho-credit" title="+995 551 03 47 47">VakhoDev</span>`,
         sortDefault: "Sort by",
         sortPriceAsc: "Price: Low to High",
         sortPriceDesc: "Price: High to Low",
@@ -288,11 +288,13 @@ function applyLang() {
         "btn-modal-close": t("close"), "btn-modal-order": t("order"),
         "stat-no-results-txt": t("statNoResults"),
         "btn-stat-modal-close": t("close"), "btn-stat-modal-order": t("statOrder"),
-        "footer-copy": t("footer", STORE.year, STORE.city[currentLang]),
     };
     for (const [id, val] of Object.entries(ids)) {
         const el = $(id); if (el) el.textContent = val;
     }
+    // footer-copy contains HTML (VakhoDev span), use innerHTML
+    const fc2 = $("footer-copy");
+    if (fc2) { fc2.innerHTML = t("footer", STORE.year, STORE.city[currentLang]); attachVakhoTooltip(); }
     const ht = $("hero-title"); if (ht) ht.innerHTML = t("heroH");
     const hd = $("hero-desc"); if (hd) hd.textContent = t("heroD");
     const si = $("search-input"); if (si) si.placeholder = t("searchPh");
@@ -685,8 +687,8 @@ function openBook(id) {
     const st = stockBadge(b.quantity);
     const imgUrl = imageMap[b._key];
     const modalCover = imgUrl
-        ? `<div class="modal-cover" style="background:${p.bg};padding:0;overflow:hidden">
-             <img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block">
+        ? `<div class="modal-cover has-image" style="background:${p.bg};padding:0;overflow:hidden" onclick="openLightbox('${imgUrl}','${esc(bTitle(b))}')" title="გადიდება">
+             <img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
            </div>`
         : `<div class="modal-cover" style="background:${p.bg};color:${p.tx}">${esc(bTitle(b))}</div>`;
 
@@ -737,12 +739,12 @@ function closeModal() {
     document.body.style.overflow = "";
 }
 
-function orderCurrentBook() {
+window.orderCurrentBook = window.orderCurrentBook || function () {
     if (!currentBook) return;
     closeModal();
     goContact();
     setTimeout(() => { $("f-msg").value = t("orderMsg", bTitle(currentBook), bAuthor(currentBook)); }, 350);
-}
+};
 
 /* ==========================================================
    CONTACT FORM — VALIDATION HELPERS
@@ -1042,13 +1044,15 @@ function openItem(id) {
         ? `background:${p.bg};padding:0;overflow:hidden`
         : `background:${p.bg};color:${p.tx}`;
     const coverHTML = imgUrl
-        ? `<img src="${imgUrl}" alt="${esc(sName(it))}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
+        ? `<img src="${imgUrl}" alt="${esc(sName(it))}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;pointer-events:none">`
         : `<div class="stat-item-icon" style="font-size:2.5rem">✏️</div>
            <div style="font-size:1rem;font-weight:600;text-align:center;padding:0 1rem">${esc(sName(it))}</div>`;
+    const coverClass = imgUrl ? "modal-cover stat-modal-cover has-image" : "modal-cover stat-item-cover stat-modal-cover";
+    const coverClick = imgUrl ? `onclick="openLightbox('${imgUrl}','${esc(sName(it))}')" title="გადიდება"` : "";
 
     document.getElementById("stat-modal-content").innerHTML = `
   <div class="modal-top">
-    <div class="modal-cover stat-item-cover stat-modal-cover" style="${modalCoverStyle}">
+    <div class="${coverClass}" style="${modalCoverStyle}" ${coverClick}>
       ${coverHTML}
     </div>
     <div class="modal-info">
@@ -1110,6 +1114,41 @@ function esc(s) {
 }
 
 /* ==========================================================
+   VAKHODEV TOOLTIP
+   ========================================================== */
+function attachVakhoTooltip() {
+    document.querySelectorAll(".vakho-credit").forEach(el => {
+        if (el.dataset.tooltipReady) return;
+        el.dataset.tooltipReady = "1";
+
+        let tip = null;
+
+        function showTip() {
+            if (tip) return;
+            tip = document.createElement("div");
+            tip.className = "vakho-tooltip";
+            tip.textContent = "+995 551 03 47 47";
+            document.body.appendChild(tip);
+            const r = el.getBoundingClientRect();
+            tip.style.left = (r.left + r.width / 2 - tip.offsetWidth / 2 + window.scrollX) + "px";
+            tip.style.top = (r.top - tip.offsetHeight - 8 + window.scrollY) + "px";
+            requestAnimationFrame(() => tip && tip.classList.add("visible"));
+        }
+
+        function hideTip() {
+            if (!tip) return;
+            tip.remove(); tip = null;
+        }
+
+        el.addEventListener("mouseenter", showTip);
+        el.addEventListener("mouseleave", hideTip);
+        el.addEventListener("click", () => {
+            if (tip) { hideTip(); } else { showTip(); setTimeout(hideTip, 3000); }
+        });
+    });
+}
+
+/* ==========================================================
    APPLY STORE CONFIG
    ========================================================== */
 function applyStore() {
@@ -1148,9 +1187,27 @@ function applyStore() {
 })();
 
 /* ==========================================================
+   LIGHTBOX
+   ========================================================== */
+function openLightbox(src, alt) {
+    let lb = document.getElementById("lightbox");
+    if (!lb) return;
+    lb.querySelector("img").src = src;
+    lb.querySelector("img").alt = alt || "";
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+    const lb = document.getElementById("lightbox");
+    if (lb) lb.classList.remove("open");
+    document.body.style.overflow = "";
+}
+
+/* ==========================================================
    KEYBOARD
    ========================================================== */
-document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal(); closeStatModal(); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal(); closeStatModal(); closeLightbox(); } });
 
 /* ==========================================================
    INIT
@@ -1169,6 +1226,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") { closeModal
 
 applyStore();
 applyLang();
+attachVakhoTooltip();
 loadBooks();
 attachLiveValidation();
 

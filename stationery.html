@@ -75,7 +75,7 @@
     <div class="nav-logo" onclick="window.location.href='index.html'">ნოვალისი <em>კანცელარია</em></div>
     <div class="nav-links">
       <a id="nav-home" href="index.html">მთავარი</a>
-      <a id="nav-catalog" href="index.html#catalog">კატალოგი</a>
+      <a id="nav-catalog" href="catalog.html">კატალოგი</a>
       <a id="nav-stat" href="stationery.html" class="active">კანცელარია</a>
       <a id="nav-contact" href="index.html#contact">კონტაქტი</a>
     </div>
@@ -167,6 +167,12 @@
     </div>
   </div>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="დახურვა">✕</button>
+    <img src="" alt="" onclick="event.stopPropagation()">
+  </div>
+
   <script src="script.js"></script>
   <script>
     // Stationery page init — runs instead of the main site init
@@ -184,8 +190,9 @@
         document.getElementById("f-home").textContent = t("navHome");
         document.getElementById("f-catalog").textContent = t("navCat");
         document.getElementById("f-stat").textContent = t("navStat");
-        document.getElementById("footer-contact").textContent = t("navContact");
-        document.getElementById("footer-copy").textContent = t("footer", STORE.year, STORE.city[currentLang]);
+        document.getElementById("f-contact").textContent = t("navContact");
+        const _fc = document.getElementById("footer-copy");
+        if (_fc) { _fc.innerHTML = t("footer", STORE.year, STORE.city[currentLang]); attachVakhoTooltip(); }
       }
 
       // Extend setLang to also re-translate stationery-specific elements

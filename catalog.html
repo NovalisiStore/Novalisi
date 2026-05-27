@@ -1,179 +1,212 @@
 <!DOCTYPE html>
 <html lang="ka">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>კატალოგი — ნოვალისი</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
     /* Active nav override for this page */
-    #nav-catalog { color: #fff !important; font-weight: 600; }
+    #nav-catalog {
+      color: #fff !important;
+      font-weight: 600;
+    }
+
     #nav-catalog::after {
       content: '';
       position: absolute;
-      bottom: -4px; left: 0; right: 0;
+      bottom: -4px;
+      left: 0;
+      right: 0;
       height: 1px;
       background: var(--cream);
       border-radius: 1px;
       transform: scaleX(1) !important;
     }
-    #nav-catalog { position: relative; }
+
+    #nav-catalog {
+      position: relative;
+    }
   </style>
 </head>
+
 <body>
 
-<nav class="nav" id="main-nav">
-  <div class="nav-logo" onclick="window.location.href='index.html'">ნოვალისი <em>წიგნები</em></div>
-  <div class="nav-links">
-    <a id="nav-home"    href="index.html">მთავარი</a>
-    <a id="nav-catalog" href="catalog.html" class="active">კატალოგი</a>
-    <a id="nav-stat"    href="stationery.html">კანცელარია</a>
-    <a id="nav-contact" href="index.html#contact">კონტაქტი</a>
-  </div>
-  <div class="nav-right">
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-ka" onclick="setLang('ka',this)">ქა</button>
-      <button class="lang-btn"        id="btn-en" onclick="setLang('en',this)">EN</button>
+  <nav class="nav" id="main-nav">
+    <div class="nav-logo" onclick="window.location.href='index.html'">ნოვალისი <em>წიგნები</em></div>
+    <div class="nav-links">
+      <a id="nav-home" href="index.html">მთავარი</a>
+      <a id="nav-catalog" href="catalog.html" class="active">კატალოგი</a>
+      <a id="nav-stat" href="stationery.html">კანცელარია</a>
+      <a id="nav-contact" href="index.html#contact">კონტაქტი</a>
     </div>
-  </div>
-</nav>
-
-<!-- CATALOG PAGE -->
-<div class="page active" id="page-catalog" style="padding-top: 80px; min-height: 100vh;">
-  <div class="catalog-header">
-    <div class="catalog-title-row">
-      <h1 class="section-title" id="catalog-heading">ჩვენი კატალოგი</h1>
-      <span class="result-count" id="result-count"></span>
-    </div>
-    <div class="catalog-controls">
-      <div class="search-wrap">
-        <span class="search-icon">⌕</span>
-        <input type="text" id="search-input" placeholder="სათაური ან ავტორი..." oninput="filterBooks()">
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-ka" onclick="setLang('ka',this)">ქა</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en',this)">EN</button>
       </div>
-      <select class="sort-select" id="sort-select" onchange="setCatSort(this.value)">
-        <option value="">დალაგება</option>
-        <option value="price-asc">ფასი: ↑ დაბლიდან</option>
-        <option value="price-desc">ფასი: ↓ მაღლიდან</option>
-        <option value="title-asc">სათაური A–Z</option>
-        <option value="discount">🏷 ფასდაკლება პირველი</option>
-      </select>
     </div>
-    <div class="genre-chips" id="catalog-chips"></div>
-  </div>
+  </nav>
 
-  <div class="catalog-body">
-    <div id="catalog-loading" class="state-msg">
-      <div class="spinner"></div>
-      <p style="margin-top:1rem;color:var(--ink3)" id="catalog-loading-txt">იტვირთება…</p>
+  <!-- CATALOG PAGE -->
+  <div class="page active" id="page-catalog" style="padding-top: 80px; min-height: 100vh;">
+    <div class="catalog-header">
+      <div class="catalog-title-row">
+        <h1 class="section-title" id="catalog-heading">ჩვენი კატალოგი</h1>
+        <span class="result-count" id="result-count"></span>
+      </div>
+      <div class="catalog-controls">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="search-input" placeholder="სათაური ან ავტორი..." oninput="filterBooks()">
+        </div>
+        <select class="sort-select" id="sort-select" onchange="setCatSort(this.value)">
+          <option value="">დალაგება</option>
+          <option value="price-asc">ფასი: ↑ დაბლიდან</option>
+          <option value="price-desc">ფასი: ↓ მაღლიდან</option>
+          <option value="title-asc">სათაური A–Z</option>
+          <option value="discount">🏷 ფასდაკლება პირველი</option>
+        </select>
+      </div>
+      <div class="genre-chips" id="catalog-chips"></div>
     </div>
-    <div class="books-grid" id="catalog-grid" style="display:none"></div>
-    <div class="state-msg" id="no-results" style="display:none">
-      <div style="font-size:42px;margin-bottom:1rem">📭</div>
-      <p id="no-results-txt" style="color:var(--ink3)">წიგნი ვერ მოიძებნა.</p>
-    </div>
-  </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ნოვალისი <em>წიგნები</em></div>
-    <div class="footer-links">
-      <a href="index.html"          id="f-home">მთავარი</a>
-      <a href="catalog.html"        id="f-catalog">კატალოგი</a>
-      <a href="stationery.html"     id="f-stat">კანცელარია</a>
-      <a href="index.html#contact"  id="f-contact">კონტაქტი</a>
-    </div>
-    <div class="footer-copy" id="footer-copy">© 2026 ნოვალისი წიგნები · ზესტაფონი</div>
-    <div class="footer-social">
-      <a class="footer-social-btn" href="https://www.facebook.com/novalisi.ts.ignebi" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-      </a>
-      <a class="footer-social-btn footer-social-btn--ig" href="https://www.instagram.com/novalisi_wignebi/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012
-    </div>
-  </div>
-</footer>
-
-<!-- BOOK MODAL -->
-<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <button class="modal-x" onclick="closeModal()" title="დახურვა" aria-label="Close">✕</button>
-    <div class="modal-inner">
-      <div id="modal-content"></div>
-      <div class="modal-actions">
-        <button class="btn btn-outline" onclick="closeModal()"       id="btn-modal-close">დახურვა</button>
-        <button class="btn btn-green"   onclick="orderCurrentBook()" id="btn-modal-order">დაკავშირება</button>
+    <div class="catalog-body">
+      <div id="catalog-loading" class="state-msg">
+        <div class="spinner"></div>
+        <p style="margin-top:1rem;color:var(--ink3)" id="catalog-loading-txt">იტვირთება…</p>
+      </div>
+      <div class="books-grid" id="catalog-grid" style="display:none"></div>
+      <div class="state-msg" id="no-results" style="display:none">
+        <div style="font-size:42px;margin-bottom:1rem">📭</div>
+        <p id="no-results-txt" style="color:var(--ink3)">წიგნი ვერ მოიძებნა.</p>
       </div>
     </div>
   </div>
-</div>
 
-<script src="script.js"></script>
-<script>
-  // Catalog page init — standalone version
-  (function () {
-    // Override orderCurrentBook: go to index.html contact section with pre-filled message
-    window.orderCurrentBook = function () {
-      if (!currentBook) return;
-      closeModal();
-      const msg = t("orderMsg", bTitle(currentBook), bAuthor(currentBook));
-      localStorage.setItem("novalisi_order_msg", msg);
-      window.location.href = "index.html";
-    };
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ნოვალისი <em>წიგნები</em></div>
+      <div class="footer-links">
+        <a href="index.html" id="f-home">მთავარი</a>
+        <a href="catalog.html" id="f-catalog">კატალოგი</a>
+        <a href="stationery.html" id="f-stat">კანცელარია</a>
+        <a href="index.html#contact" id="f-contact">კონტაქტი</a>
+      </div>
+      <div class="footer-copy" id="footer-copy">© 2026 ნოვალისი წიგნები · ზესტაფონი</div>
+      <div class="footer-social">
+        <a class="footer-social-btn" href="https://www.facebook.com/novalisi.ts.ignebi" target="_blank" rel="noopener"
+          aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+          </svg>
+        </a>
+        <a class="footer-social-btn footer-social-btn--ig" href="https://www.instagram.com/novalisi_wignebi/"
+          target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.31.975.975 1.248 2.243 1.31 3.608.058 1.266.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.31 3.608-.975.975-2.243 1.248-3.608 1.31-1.266.058-1.645.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.31-.975-.975-1.248-2.243-1.31-3.608C2.175 15.747 2.163 15.368 2.163 12s0-3.584.07-4.85c0-1 .334-2 .975-2C5 .334 6 .012 7 .012c1 .058 2 .334 3 .975C11 .012 12 .002 12 .002zM12 0C8.741 0 8..741-.002 7-.002c-2 .001-3 .667-4 .667C2 .665 0 .333 0 .333S0 .001 0 .001C0-.001-.001-.002-.001-.002h16c0 .001-.001 .001-.001 .001s0 .332-.001 .333c0 .333-.667 1-4 .667C8..741-.002 8..741 0 12 0zm0 5a7 7 0 100 14A7 7 0 0012 5zm0 11a4 4 0 110-8A4 4 0 0112 16zm6-11a1.5 1.5 0 11-3 .001A1.5 1.5 0 0118,5z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    </div>
+  </footer>
 
-    // Override goContact: navigate to index.html contact section
-    window.goContact = function () {
-      window.location.href = "index.html#contact";
-    };
+  <!-- BOOK MODAL -->
+  <div class=" modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <button class="modal-x" onclick="closeModal()" title="დახურვა" aria-label="Close">✕</button>
+      <div class="modal-inner">
+        <div id="modal-content"></div>
+        <div class="modal-actions">
+          <button class="btn btn-outline" onclick="closeModal()" id="btn-modal-close">დახურვა</button>
+          <button class="btn btn-green" onclick="orderCurrentBook()" id="btn-modal-order">დაკავშირება</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    // Translate catalog-specific nav/footer elements
-    function translatePage() {
-      const ids = {
-        "nav-home":    t("navHome"),
-        "nav-catalog": t("navCat"),
-        "nav-stat":    t("navStat"),
-        "nav-contact": t("navContact"),
-        "f-home":      t("navHome"),
-        "f-catalog":   t("navCat"),
-        "f-stat":      t("navStat"),
-        "footer-contact":   t("navContact"),
-        "catalog-heading":      t("catTitle"),
-        "catalog-loading-txt":  t("loading"),
-        "no-results-txt":       t("noResults"),
-        "btn-modal-close":      t("close"),
-        "btn-modal-order":      t("order"),
-        "footer-copy":          t("footer", STORE.year, STORE.city[currentLang]),
+  <script>
+    // Catalog page init — define BEFORE script.js loads so onLoaded override is in place
+    // when loadBooks() fires it at the end of its async chain.
+    (function () {
+      // Override onLoaded so catalog renders after books are fetched
+      window.onLoaded = function () {
+        buildCatalogChips();
+        renderCatalog();
       };
-      for (const [id, val] of Object.entries(ids)) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = val;
+
+      // Override orderCurrentBook: go to index.html contact section with pre-filled message
+      window.orderCurrentBook = function () {
+        if (!currentBook) return;
+        closeModal();
+        const msg = t("orderMsg", bTitle(currentBook), bAuthor(currentBook));
+        localStorage.setItem("novalisi_order_msg", msg);
+        window.location.href = "index.html";
+      };
+
+      // Override goContact: navigate to index.html contact section
+      window.goContact = function () {
+        window.location.href = "index.html#contact";
+      };
+    })();
+  </script>
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="დახურვა">✕</button>
+    <img src="" alt="" onclick="event.stopPropagation()">
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Post-load: translate catalog-specific elements and extend setLang
+    (function () {
+      function translatePage() {
+        const ids = {
+          "nav-home": t("navHome"),
+          "nav-catalog": t("navCat"),
+          "nav-stat": t("navStat"),
+          "nav-contact": t("navContact"),
+          "f-home": t("navHome"),
+          "f-catalog": t("navCat"),
+          "f-stat": t("navStat"),
+          "footer-contact": t("navContact"),
+          "catalog-heading": t("catTitle"),
+          "catalog-loading-txt": t("loading"),
+          "no-results-txt": t("noResults"),
+          "btn-modal-close": t("close"),
+          "btn-modal-order": t("order"),
+          "footer-copy": null,
+        };
+        for (const [id, val] of Object.entries(ids)) {
+          const el = document.getElementById(id);
+          if (el && val !== null) el.textContent = val;
+        }
+        const fc = document.getElementById("footer-copy");
+        if (fc) { fc.innerHTML = t("footer", STORE.year, STORE.city[currentLang]); attachVakhoTooltip(); }
+        const si = document.getElementById("search-input");
+        if (si) si.placeholder = t("searchPh");
       }
-      const si = document.getElementById("search-input");
-      if (si) si.placeholder = t("searchPh");
-    }
 
-    // Extend setLang to also re-translate catalog elements
-    const _baseLang = window.setLang;
-    window.setLang = function (lang, btn) {
-      _baseLang(lang, btn);
+      // Extend setLang to also re-translate catalog elements
+      const _baseLang = window.setLang;
+      window.setLang = function (lang, btn) {
+        _baseLang(lang, btn);
+        translatePage();
+      };
+
       translatePage();
-    };
-
-    translatePage();
-
-    // Trigger catalog render once books are loaded
-    // (script.js calls loadBooks() → onLoaded() but doesn't call renderCatalog for standalone)
-    const _onLoaded = window.onLoaded;
-    window.onLoaded = function () {
-      if (_onLoaded) _onLoaded();
-      buildCatalogChips();
-      renderCatalog();
-    };
-  })();
-</script>
+    })();
+  </script>
 </body>
+
 </html>
