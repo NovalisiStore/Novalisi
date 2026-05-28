@@ -77,7 +77,7 @@
       <a id="nav-home" href="index.html">მთავარი</a>
       <a id="nav-catalog" href="catalog.html">კატალოგი</a>
       <a id="nav-stat" href="stationery.html" class="active">კანცელარია</a>
-      <a id="nav-contact" href="index.html#contact">კონტაქტი</a>
+      <a id="nav-contact" href="index.html#section-contact">კონტაქტი</a>
     </div>
     <div class="nav-right">
       <div class="lang-toggle">
@@ -132,7 +132,7 @@
         <a href="index.html" id="f-home">მთავარი</a>
         <a href="index.html#catalog" id="f-catalog">კატალოგი</a>
         <a href="stationery.html" id="f-stat">კანცელარია</a>
-        <a href="index.html#contact" id="f-contact">კონტაქტი</a>
+        <a href="index.html#section-contact" id="f-contact">კონტაქტი</a>
       </div>
       <div class="footer-copy" id="footer-copy">© 2026 ნოვალისი წიგნები · ზესტაფონი</div>
       <div class="footer-social">
@@ -153,6 +153,26 @@
       </div>
     </div>
   </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <a href="index.html" id="mnav-home">
+      <span class="mnav-icon">🏠</span>
+      <span id="mnav-home-lbl">მთავარი</span>
+    </a>
+    <a href="catalog.html" id="mnav-catalog">
+      <span class="mnav-icon">📚</span>
+      <span id="mnav-catalog-lbl">კატალოგი</span>
+    </a>
+    <a href="stationery.html" id="mnav-stat" class="active">
+      <span class="mnav-icon">✏️</span>
+      <span id="mnav-stat-lbl">კანცელარია</span>
+    </a>
+    <a href="index.html#section-contact" id="mnav-contact">
+      <span class="mnav-icon">✉️</span>
+      <span id="mnav-contact-lbl">კონტაქტი</span>
+    </a>
+  </nav>
 
   <!-- STATIONERY MODAL -->
   <div class="modal-overlay" id="stat-modal" onclick="if(event.target===this)closeStatModal()">

@@ -303,6 +303,9 @@ function applyLang() {
     const fn = $("f-name"); if (fn) fn.placeholder = t("phName");
     const fc = $("f-contact"); if (fc) fc.placeholder = t("phReach");
     const fm = $("f-msg"); if (fm) fm.placeholder = t("phMsg");
+    // Mobile bottom nav labels
+    const ml = [["mnav-home-lbl","navHome"],["mnav-catalog-lbl","navCat"],["mnav-stat-lbl","navStat"],["mnav-contact-lbl","navContact"]];
+    ml.forEach(([id,key]) => { const el=$(id); if(el) el.textContent=t(key); });
 }
 
 /* ==========================================================
@@ -1323,5 +1326,16 @@ attachLiveValidation();
             const fm = $("f-msg");
             if (fm) fm.value = pendingMsg;
         }, 600);
+    }
+})();
+
+// Handle #section-contact hash on page load (e.g. from mobile nav Contact link)
+(function () {
+    if (window.location.hash === "#section-contact") {
+        // Remove hash from URL cleanly, then scroll after page settles
+        history.replaceState(null, "", window.location.pathname);
+        window.addEventListener("load", function () {
+            setTimeout(() => scrollToSection("section-contact"), 300);
+        });
     }
 })();
