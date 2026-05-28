@@ -1,80 +1,30 @@
--- =============================================
--- TABLES
--- =============================================
-CREATE TABLE public.book_images (
-  id        bigint      NOT NULL,
-  book_key  text        NOT NULL,
-  image_url text,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE public.stationery_images (
-  id         bigint                    NOT NULL,
-  item_key   text                      NOT NULL,
-  image_url  text                      NOT NULL,
-  created_at timestamp with time zone DEFAULT now(),
-  PRIMARY KEY (id)
-);
-
-
--- =============================================
--- ENABLE RLS
--- =============================================
-ALTER TABLE public.book_images ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.stationery_images ENABLE ROW LEVEL SECURITY;
-
-
--- =============================================
--- TABLE POLICIES
--- =============================================
-CREATE POLICY "Public read"
-  ON public.book_images FOR SELECT TO public USING (true);
-
-CREATE POLICY "Anon write"
-  ON public.book_images FOR ALL TO public USING (true) WITH CHECK (true);
-
-CREATE POLICY "Public read stationery"
-  ON public.stationery_images FOR SELECT TO public USING (true);
-
-CREATE POLICY "Anon insert stationery"
-  ON public.stationery_images FOR INSERT TO public WITH CHECK (true);
-
-CREATE POLICY "Anon delete stationery"
-  ON public.stationery_images FOR DELETE TO public USING (true);
-
-
--- =============================================
--- STORAGE BUCKETS
--- =============================================
-INSERT INTO storage.buckets (id, name, public, avif_autodetection, type)
+-- Create buckets
+INSERT INTO storage.buckets (id, name, public)
 VALUES
-  ('book-images',       'book-images',       true, false, 'STANDARD'),
-  ('stationery-images', 'stationery-images', true, false, 'STANDARD');
+  ('book-images', 'book-images', true),
+  ('stationery-images', 'stationery-images', true);
 
-
--- =============================================
--- STORAGE POLICIES
--- =============================================
+-- book-images policies
 CREATE POLICY "Anon upload"
-  ON storage.objects FOR INSERT TO public
-  WITH CHECK (bucket_id = 'book-images');
+ON storage.objects FOR INSERT TO public
+WITH CHECK (bucket_id = 'book-images');
 
 CREATE POLICY "Public read"
-  ON storage.objects FOR SELECT TO public
-  USING (bucket_id = 'book-images');
+ON storage.objects FOR SELECT TO public
+USING (bucket_id = 'book-images');
 
+-- stationery-images policies
 CREATE POLICY "Anon upload stationery bucket"
-  ON storage.objects FOR INSERT TO public
-  WITH CHECK (bucket_id = 'stationery-images');
+ON storage.objects FOR INSERT TO public
+WITH CHECK (bucket_id = 'stationery-images');
 
 CREATE POLICY "Public read stationery bucket"
-  ON storage.objects FOR SELECT TO public
-  USING (bucket_id = 'stationery-images');
+ON storage.objects FOR SELECT TO public
+USING (bucket_id = 'stationery-images');
 
 CREATE POLICY "Anon delete stationery bucket"
-  ON storage.objects FOR DELETE TO public
-  USING (bucket_id = 'stationery-images');
-
+ON storage.objects FOR DELETE TO public
+USING (bucket_id = 'stationery-images');
 
 
 

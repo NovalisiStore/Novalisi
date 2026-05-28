@@ -1656,18 +1656,22 @@
       if (file && file.type.startsWith("image/")) handleFileInput(file);
     });
 
-    function handleFileInput(file) {
+    async function handleFileInput(file) {
       if (!file) return;
       if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
-      pendingFile = file;
+      const compressed = await compressImage(file);
+      pendingFile = compressed;
       const reader = new FileReader();
       reader.onload = e => {
         document.getElementById("preview-img").src = e.target.result;
-        document.getElementById("preview-name").textContent = file.name + " (" + formatSize(file.size) + ")";
+        const sizeLabel = compressed.size < file.size
+          ? `${formatSize(file.size)} → ${formatSize(compressed.size)} (WebP)`
+          : formatSize(file.size);
+        document.getElementById("preview-name").textContent = file.name + " (" + sizeLabel + ")";
         document.getElementById("img-preview").style.display = "block";
         updateSaveBtn();
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressed);
     }
 
     function clearFile() {
@@ -1805,13 +1809,19 @@
             headers: {
               "apikey": SUPABASE_ANON,
               "Authorization": "Bearer " + SUPABASE_ANON,
+              "Prefer": "return=representation",
             }
           }
         );
 
         if (!dbRes.ok) {
           const err = await dbRes.json().catch(() => ({}));
-          throw new Error(err.message || "DB delete failed");
+          throw new Error(err.message || "DB delete failed (HTTP " + dbRes.status + ")");
+        }
+
+        const deleted = await dbRes.json().catch(() => []);
+        if (!Array.isArray(deleted) || deleted.length === 0) {
+          throw new Error("RLS blocked the delete — run the SQL policy fix in Supabase");
         }
 
         // 4. Update local state
@@ -1830,6 +1840,36 @@
 
       delBtn.disabled = false;
       delBtn.textContent = "🗑 სურათის წაშლა";
+    }
+
+    /* ══════════════════════════════════════════════
+       IMAGE COMPRESSION
+       Canvas → WebP 0.82q, max 1400px long edge.
+       Falls back to original if WebP is larger.
+    ══════════════════════════════════════════════ */
+    function compressImage(file, maxPx = 1400, quality = 0.82) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          let { width, height } = img;
+          if (width > maxPx || height > maxPx) {
+            if (width >= height) { height = Math.round(height * maxPx / width); width = maxPx; }
+            else { width = Math.round(width * maxPx / height); height = maxPx; }
+          }
+          const canvas = document.createElement("canvas");
+          canvas.width = width; canvas.height = height;
+          canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+          canvas.toBlob(blob => {
+            if (!blob || blob.size >= file.size) { resolve(file); return; }
+            const compressed = new File([blob], file.name.replace(/\.[^.]+$/, ".webp"), { type: "image/webp" });
+            resolve(compressed);
+          }, "image/webp", quality);
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+        img.src = url;
+      });
     }
 
     /* ══════════════════════════════════════════════
@@ -2053,18 +2093,22 @@
       });
     }
 
-    function handleStatFile(file) {
+    async function handleStatFile(file) {
       if (!file) return;
       if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
-      statPendingFile = file;
+      const compressed = await compressImage(file);
+      statPendingFile = compressed;
       const reader = new FileReader();
       reader.onload = e => {
         document.getElementById("stat-preview-img").src = e.target.result;
-        document.getElementById("stat-preview-name").textContent = file.name + " (" + formatSize(file.size) + ")";
+        const sizeLabel = compressed.size < file.size
+          ? `${formatSize(file.size)} → ${formatSize(compressed.size)} (WebP)`
+          : formatSize(file.size);
+        document.getElementById("stat-preview-name").textContent = file.name + " (" + sizeLabel + ")";
         document.getElementById("stat-img-preview").style.display = "block";
         updateStatSaveBtn();
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressed);
     }
 
     function clearStatFile() {
