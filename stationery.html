@@ -107,6 +107,7 @@
           <option value="discount">🏷 ფასდაკლება პირველი</option>
         </select>
       </div>
+      <div class="stat-type-tabs" id="stat-type-tabs" style="display:none"></div>
       <div class="genre-chips" id="stat-cat-chips"></div>
     </div>
 
@@ -200,7 +201,7 @@
       window.setLang = function (lang, btn) {
         _baseLang(lang, btn);
         translatePage();
-        if (allItems.length) { buildStatCatChips(); renderStat(); }
+        if (allItems.length) { buildStatTypeTabs(); buildStatCatChips(); renderStat(); }
       };
 
       // Override orderCurrentItem to pass message via localStorage then navigate

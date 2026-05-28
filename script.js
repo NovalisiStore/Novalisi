@@ -195,6 +195,7 @@ let currentPage = "landing";
 let allItems = [];
 let statCat = "";
 let statSort = "";
+let statType = "";   // active shop type filter (empty = all)
 let currentItem = null;
 
 function $(id) { return document.getElementById(id); }
@@ -260,6 +261,7 @@ function setLang(lang, btn) {
         renderCatalog();
     }
     if (allItems.length) {
+        buildStatTypeTabs();
         buildStatCatChips();
         renderStat();
     }
@@ -887,6 +889,7 @@ async function loadStationery() {
     if (el) el.style.display = "none";
     const grid = document.getElementById("stat-grid");
     if (grid) grid.style.display = "grid";
+    buildStatTypeTabs();
     buildStatCatChips();
     renderStat();
 }
@@ -908,6 +911,8 @@ function parseStatCSV(text) {
         it.category = (it.category || "").trim();
         it.name_en = (it.name_en || "").trim();
         it.category_en = (it.category_en || "").trim();
+        it.type = (it.type || "").trim();
+        it.type_en = (it.type_en || "").trim();
         it._palette = PALETTES[items.length % PALETTES.length];
         it._id = items.length;
         it._key = "stat__" + (safeKey(it.name) || "item_" + items.length);
@@ -918,17 +923,94 @@ function parseStatCSV(text) {
 
 function sName(it) { return (currentLang === "en" && it.name_en) ? it.name_en : it.name; }
 function sCat(it) { return (currentLang === "en" && it.category_en) ? it.category_en : it.category; }
+function sType(it) { return (currentLang === "en" && it.type_en) ? it.type_en : it.type; }
+
+/* ==========================================================
+   STATIONERY — TYPE TABS  (კანცელარია / აქსესუარები / etc.)
+   ========================================================== */
+// Icon map for known types (Georgian keys)
+const STAT_TYPE_ICONS = {
+    "კანცელარია": "✏️",
+    "stationery": "✏️",
+    "აქსესუარები": "💍",
+    "accessories": "💍",
+    "სათამაშოები": "🧸",
+    "toys": "🧸",
+    "ელექტრონიკა": "📱",
+    "electronics": "📱",
+    "ტანსაცმელი": "👕",
+    "clothing": "👕",
+    "სპორტი": "⚽",
+    "sports": "⚽",
+    "სახლი": "🏠",
+    "home": "🏠",
+    "სილამაზე": "💄",
+    "beauty": "💄",
+    "სხვა": "🛍️",
+    "other": "🛍️",
+};
+
+function getTypeIcon(typeName) {
+    if (!typeName) return "🛍️";
+    const key = typeName.toLowerCase();
+    return STAT_TYPE_ICONS[typeName] || STAT_TYPE_ICONS[key] || "🛍️";
+}
+
+function buildStatTypeTabs() {
+    const el = document.getElementById("stat-type-tabs");
+    if (!el) return;
+
+    // Collect unique types preserving order of first appearance
+    const types = [];
+    const seen = new Set();
+    allItems.forEach(it => {
+        if (it.type && !seen.has(it.type)) { seen.add(it.type); types.push(it.type); }
+    });
+
+    if (!types.length) { el.innerHTML = ""; el.style.display = "none"; return; }
+
+    el.style.display = "flex";
+
+    // "All" tab
+    const allLabel = currentLang === "en" ? "All" : "ყველა";
+    let html = `<button class="stat-type-tab${!statType ? " active" : ""}" onclick="setStatType('',this)">
+        <span class="stat-type-tab-icon">🛒</span><span>${allLabel}</span>
+    </button>`;
+
+    types.forEach(tp => {
+        const itWithEn = allItems.find(it => it.type === tp && it.type_en);
+        const label = (currentLang === "en" && itWithEn) ? itWithEn.type_en : tp;
+        const icon = getTypeIcon(tp) || getTypeIcon(itWithEn?.type_en || "");
+        const safeT = tp.replace(/'/g, "\\'");
+        html += `<button class="stat-type-tab${statType === tp ? " active" : ""}" onclick="setStatType('${safeT}',this)">
+            <span class="stat-type-tab-icon">${icon}</span><span>${esc(label)}</span>
+        </button>`;
+    });
+
+    el.innerHTML = html;
+}
+
+function setStatType(type, btn) {
+    statType = type;
+    statCat = ""; // reset category filter when switching type
+    document.querySelectorAll("#stat-type-tabs .stat-type-tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    buildStatCatChips();
+    renderStat();
+}
 
 /* ==========================================================
    STATIONERY — CATEGORY CHIPS
    ========================================================== */
 function buildStatCatChips() {
     const el = document.getElementById("stat-cat-chips"); if (!el) return;
-    const cats = [...new Set(allItems.map(it => it.category).filter(Boolean))];
+    // Only show categories relevant to the active type
+    const scopedItems = statType ? allItems.filter(it => it.type === statType) : allItems;
+    const cats = [...new Set(scopedItems.map(it => it.category).filter(Boolean))];
     if (!cats.length) { el.innerHTML = ""; return; }
     const allChip = `<button class="chip${!statCat ? " active" : ""}" onclick="setStatCat('',this)">ყველა</button>`;
     const chips = cats.map(c => {
-        const label = (currentLang === "en" && allItems.find(it => it.category === c)?.category_en) || c;
+        const label = (currentLang === "en" && scopedItems.find(it => it.category === c)?.category_en) || c;
         const safeC = c.replace(/'/g, "\\'");
         return `<button class="chip${statCat === c ? " active" : ""}" onclick="setStatCat('${safeC}',this)">${esc(label)}</button>`;
     }).join("");
@@ -968,8 +1050,9 @@ function renderStat() {
             || (it.name_en || "").toLowerCase().includes(q)
             || (it.category || "").toLowerCase().includes(q)
             || (it.category_en || "").toLowerCase().includes(q);
+        const tm = !statType || it.type === statType;
         const cm = !statCat || it.category === statCat;
-        return ms && cm;
+        return ms && tm && cm;
     });
 
     if (statSort === "price-asc") filtered = [...filtered].sort((a, b) => a.price - b.price);
