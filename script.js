@@ -304,8 +304,8 @@ function applyLang() {
     const fc = $("f-contact"); if (fc) fc.placeholder = t("phReach");
     const fm = $("f-msg"); if (fm) fm.placeholder = t("phMsg");
     // Mobile bottom nav labels
-    const ml = [["mnav-home-lbl","navHome"],["mnav-catalog-lbl","navCat"],["mnav-stat-lbl","navStat"],["mnav-contact-lbl","navContact"]];
-    ml.forEach(([id,key]) => { const el=$(id); if(el) el.textContent=t(key); });
+    const ml = [["mnav-home-lbl", "navHome"], ["mnav-catalog-lbl", "navCat"], ["mnav-stat-lbl", "navStat"], ["mnav-contact-lbl", "navContact"]];
+    ml.forEach(([id, key]) => { const el = $(id); if (el) el.textContent = t(key); });
 }
 
 /* ==========================================================
