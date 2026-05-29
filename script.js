@@ -21,7 +21,7 @@ const STORE = {
     city: { ka: "ზესტაფონი", en: "Zestafoni" },
 };
 
-const FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyHY7n3oKF4mh1yjOh2fXFd8Iwl6m3ro-aatjPnK-GEXF412-WZzcb0kXj8Rpz-i2rvsA/exec";
+const FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyLskRg9af1OqqqaGSN0LSXclhzO8gxjesTStFq_QloBWrfMK3nNJ32M2gXUUMwju4t2g/exec";
 
 /* ==========================================================
    BOOK COVER COLOR PALETTES
