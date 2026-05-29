@@ -14,9 +14,9 @@ const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const STORE = {
     name: "ნოვალისი",
     phone: "+995 511 45 41 74",
-    email: "gmail@gmail.com",
-    address: { ka: "აღმაშენებლის ქუჩა N33, ზესტაფონი", en: "Aghmashenebeli street N33, Zestafoni" },
-    hours: { ka: "ორშ–შაბ, 10:00–19:00", en: "Mon–Sat, 10:00–19:00" },
+    email: "novalisi.wignebi@gmail.com",
+    address: { ka: "აღმაშენებლის ქუჩა N39, ზესტაფონი", en: "Aghmashenebeli street N39, Zestafoni" },
+    hours: { ka: "ორშ–კვი, 8:30–22:00", en: "Mon–Sun, 8:30–22:00" },
     year: "2026",
     city: { ka: "ზესტაფონი", en: "Zestafoni" },
 };
