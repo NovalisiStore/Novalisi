@@ -28,7 +28,7 @@ USING (bucket_id = 'stationery-images');
 
 
 
-supabase link --project-ref YOUR_REFERENCE_ID
+supabase link --project-ref dhicamyqdhrlzsnynkcw
 supabase secrets set ADMIN_PASSWORD=your_actual_password --project-ref YOUR_REFERENCE_ID
 https://YOUR_REFERENCE_ID.supabase.co/functions/v1/admin-auth
 npm install -g supabase
@@ -36,4 +36,7 @@ supabase login
 cd my-project
 supabase link --project-ref YOUR_REFERENCE_ID
 supabase functions deploy admin-auth
-supabase secrets set ADMIN_PASSWORD=your_password --project-ref YOUR_REFERENCE_ID
+supabase secrets set ADMIN_PASSWORD=Novalisi199432 --project-ref dhicamyqdhrlzsnynkcw
+
+
+npx wrangler deploy

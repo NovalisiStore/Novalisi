@@ -2,10 +2,10 @@
    ★  CONFIGURATION — EDIT THESE VALUES
    ========================================================== */
 
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUAYX4H_-AFJCxw9sMN-FVjl_jN3DjF2LEmL2gPTWWqx7AZ16_jPAVXLcG-r1MPKilEo9CWtdJHMa_/pub?gid=0&single=true&output=csv";
 
 // ★ STATIONERY SHEET — replace STATIONERY_GID with your second sheet's gid
-const STATIONERY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=1878651999&single=true&output=csv";
+const STATIONERY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUAYX4H_-AFJCxw9sMN-FVjl_jN3DjF2LEmL2gPTWWqx7AZ16_jPAVXLcG-r1MPKilEo9CWtdJHMa_/pub?gid=1542487539&single=true&output=csv";
 
 // Supabase — for book cover images uploaded via admin panel
 const SUPABASE_URL = "https://umjsamfyisrdvyyvcooo.supabase.co";
