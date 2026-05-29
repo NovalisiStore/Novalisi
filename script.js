@@ -2,10 +2,10 @@
    ★  CONFIGURATION — EDIT THESE VALUES
    ========================================================== */
 
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUAYX4H_-AFJCxw9sMN-FVjl_jN3DjF2LEmL2gPTWWqx7AZ16_jPAVXLcG-r1MPKilEo9CWtdJHMa_/pub?gid=0&single=true&output=csv";
 
 // ★ STATIONERY SHEET — replace STATIONERY_GID with your second sheet's gid
-const STATIONERY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=1878651999&single=true&output=csv";
+const STATIONERY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUAYX4H_-AFJCxw9sMN-FVjl_jN3DjF2LEmL2gPTWWqx7AZ16_jPAVXLcG-r1MPKilEo9CWtdJHMa_/pub?gid=1542487539&single=true&output=csv";
 
 // Supabase — for book cover images uploaded via admin panel
 const SUPABASE_URL = "https://dhicamyqdhrlzsnynkcw.supabase.co";
@@ -21,7 +21,7 @@ const STORE = {
     city: { ka: "ზესტაფონი", en: "Zestafoni" },
 };
 
-const FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbx_3BmIykV8EQsyBo9IxvTVQd4FYEcmx22vE2sauyhPDOEI0RmmkGzm_r1hbLFl1xLd-A/exec";
+const FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyHY7n3oKF4mh1yjOh2fXFd8Iwl6m3ro-aatjPnK-GEXF412-WZzcb0kXj8Rpz-i2rvsA/exec";
 
 /* ==========================================================
    BOOK COVER COLOR PALETTES
@@ -397,16 +397,22 @@ function showEmptyState() {
    ========================================================== */
 async function loadImageMap() {
     try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/book_images?select=book_key,image_url`, {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/book-images`, {
+            method: "POST",
             headers: {
                 "apikey": SUPABASE_ANON,
                 "Authorization": "Bearer " + SUPABASE_ANON,
-            }
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ limit: 1000, offset: 0, prefix: "" }),
         });
         if (!res.ok) return;
-        const rows = await res.json();
+        const files = await res.json();
         imageMap = {};
-        rows.forEach(r => { imageMap[r.book_key] = r.image_url; });
+        files.forEach(f => {
+            const nameWithoutExt = f.name.replace(/\.[^.]+$/, "");
+            imageMap[nameWithoutExt] = `${SUPABASE_URL}/storage/v1/object/public/book-images/${f.name}`;
+        });
     } catch (e) {
         console.warn("Image map load failed:", e);
     }
@@ -417,16 +423,22 @@ async function loadImageMap() {
    ========================================================== */
 async function loadStatImageMap() {
     try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/stationery_images?select=item_key,image_url`, {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/stationery-images`, {
+            method: "POST",
             headers: {
                 "apikey": SUPABASE_ANON,
                 "Authorization": "Bearer " + SUPABASE_ANON,
-            }
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ limit: 1000, offset: 0, prefix: "" }),
         });
         if (!res.ok) return;
-        const rows = await res.json();
+        const files = await res.json();
         statImageMap = {};
-        rows.forEach(r => { statImageMap[r.item_key] = r.image_url; });
+        files.forEach(f => {
+            const nameWithoutExt = f.name.replace(/\.[^.]+$/, "");
+            statImageMap[nameWithoutExt] = `${SUPABASE_URL}/storage/v1/object/public/stationery-images/${f.name}`;
+        });
     } catch (e) {
         console.warn("Stationery image map load failed:", e);
     }

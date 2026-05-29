@@ -1097,213 +1097,213 @@
     <!-- SIDEBAR + CONTENT WRAPPER -->
     <div class="admin-layout">
 
-    <!-- SIDEBAR -->
-    <nav class="admin-sidebar">
-      <div class="sidebar-section-label">კატალოგი</div>
-      <button class="admin-tab active" id="tab-books-btn" onclick="switchTab('books')">
-        <span class="tab-icon">📚</span>
-        <span>წიგნები</span>
-        <span class="tab-badge" id="badge-books">—</span>
-      </button>
-      <button class="admin-tab" id="tab-stat-btn" onclick="switchTab('stat')">
-        <span class="tab-icon">✏️</span>
-        <span>კანცელარია</span>
-        <span class="tab-badge" id="badge-stat">—</span>
-      </button>
-    </nav>
+      <!-- SIDEBAR -->
+      <nav class="admin-sidebar">
+        <div class="sidebar-section-label">კატალოგი</div>
+        <button class="admin-tab active" id="tab-books-btn" onclick="switchTab('books')">
+          <span class="tab-icon">📚</span>
+          <span>წიგნები</span>
+          <span class="tab-badge" id="badge-books">—</span>
+        </button>
+        <button class="admin-tab" id="tab-stat-btn" onclick="switchTab('stat')">
+          <span class="tab-icon">✏️</span>
+          <span>კანცელარია</span>
+          <span class="tab-badge" id="badge-stat">—</span>
+        </button>
+      </nav>
 
-    <!-- MAIN CONTENT -->
-    <div class="admin-content">
+      <!-- MAIN CONTENT -->
+      <div class="admin-content">
 
-    <!-- ═══ BOOKS TAB ═══ -->
-    <div class="tab-panel active" id="tab-books">
+        <!-- ═══ BOOKS TAB ═══ -->
+        <div class="tab-panel active" id="tab-books">
 
-      <!-- STATS -->
-      <div class="stats-bar">
-        <div class="stat-item">
-          <div class="stat-num" id="s-total">—</div>
-          <div class="stat-lbl">სულ წიგნი</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" id="s-instock">—</div>
-          <div class="stat-lbl">მარაგშია</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" id="s-images">—</div>
-          <div class="stat-lbl">სურათი ატვირთული</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" id="s-noimages">—</div>
-          <div class="stat-lbl">სურათის გარეშე</div>
-        </div>
-      </div>
-
-      <!-- MAIN -->
-      <div class="admin-body">
-
-        <!-- LEFT: SEARCH + LIST -->
-        <div class="panel">
-          <div class="panel-head">
-            <div class="panel-title">წიგნების ძიება</div>
-            <div class="search-wrap">
-              <span class="search-icon">⌕</span>
-              <input type="text" id="book-search" placeholder="სათაური ან ავტორი…" oninput="filterList()">
+          <!-- STATS -->
+          <div class="stats-bar">
+            <div class="stat-item">
+              <div class="stat-num" id="s-total">—</div>
+              <div class="stat-lbl">სულ წიგნი</div>
             </div>
-            <div class="search-meta">
-              <span id="list-count"></span>
-              <div class="sheets-status">
-                <div class="dot loading" id="sheets-dot"></div>
-                <span id="sheets-label">Google Sheets…</span>
+            <div class="stat-item">
+              <div class="stat-num" id="s-instock">—</div>
+              <div class="stat-lbl">მარაგშია</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="s-images">—</div>
+              <div class="stat-lbl">სურათი ატვირთული</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="s-noimages">—</div>
+              <div class="stat-lbl">სურათის გარეშე</div>
+            </div>
+          </div>
+
+          <!-- MAIN -->
+          <div class="admin-body">
+
+            <!-- LEFT: SEARCH + LIST -->
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title">წიგნების ძიება</div>
+                <div class="search-wrap">
+                  <span class="search-icon">⌕</span>
+                  <input type="text" id="book-search" placeholder="სათაური ან ავტორი…" oninput="filterList()">
+                </div>
+                <div class="search-meta">
+                  <span id="list-count"></span>
+                  <div class="sheets-status">
+                    <div class="dot loading" id="sheets-dot"></div>
+                    <span id="sheets-label">Google Sheets…</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="books-list" id="books-list">
-            <div class="list-state">
-              <div class="spinner"></div>იტვირთება…
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT: UPLOAD -->
-        <div class="upload-panel">
-          <div class="upload-head">
-            <div class="upload-title">სურათის ატვირთვა</div>
-            <div class="upload-sub">აირჩიეთ წიგნი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
-          </div>
-
-          <!-- no book selected -->
-          <div class="no-selection" id="no-sel">
-            <div class="arrow">←</div>
-            <div>პირველ რიგში აირჩიეთ წიგნი</div>
-          </div>
-
-          <!-- selected book info -->
-          <div class="selected-book-card" id="sel-card">
-            <div class="sel-cover" id="sel-cover-wrap"></div>
-            <div class="sel-info">
-              <div class="sel-title" id="sel-title-txt"></div>
-              <div class="sel-author" id="sel-author-txt"></div>
-            </div>
-            <button class="sel-clear" onclick="clearSelection()" title="გაუქმება">✕</button>
-          </div>
-
-          <div class="upload-body">
-            <div class="drop-zone" id="drop-zone">
-              <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
-              <div class="drop-icon">📷</div>
-              <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
-              <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
-            </div>
-
-            <div class="img-preview" id="img-preview">
-              <img id="preview-img" src="" alt="preview">
-              <div class="img-preview-meta">
-                <span id="preview-name"></span>
-                <button class="preview-remove" onclick="clearFile()">✕ წაშლა</button>
+              <div class="books-list" id="books-list">
+                <div class="list-state">
+                  <div class="spinner"></div>იტვირთება…
+                </div>
               </div>
             </div>
 
-            <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
-            <button class="delete-btn" id="delete-btn" onclick="deleteImage()">🗑 სურათის წაშლა</button>
-          </div>
-        </div>
-
-      </div><!-- /admin-body -->
-    </div><!-- /tab-books -->
-
-    <!-- ═══ STATIONERY TAB ═══ -->
-    <div class="tab-panel" id="tab-stat">
-
-      <div class="stats-bar">
-        <div class="stat-item">
-          <div class="stat-num" id="ss-total">—</div>
-          <div class="stat-lbl">სულ პროდუქტი</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" id="ss-instock">—</div>
-          <div class="stat-lbl">მარაგშია</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" id="ss-images">—</div>
-          <div class="stat-lbl">სურათი ატვირთული</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" id="ss-noimages">—</div>
-          <div class="stat-lbl">სურათის გარეშე</div>
-        </div>
-      </div>
-
-      <div class="admin-body">
-
-        <!-- LEFT: STATIONERY SEARCH + LIST -->
-        <div class="panel">
-          <div class="panel-head">
-            <div class="panel-title">კანცელარიის ძიება</div>
-            <div class="search-wrap">
-              <span class="search-icon">⌕</span>
-              <input type="text" id="stat-search" placeholder="სახელი ან კატეგორია…" oninput="filterStatList()">
-            </div>
-            <div class="search-meta">
-              <span id="stat-list-count"></span>
-              <div class="sheets-status">
-                <div class="dot loading" id="stat-dot"></div>
-                <span id="stat-sheets-label">Google Sheets…</span>
+            <!-- RIGHT: UPLOAD -->
+            <div class="upload-panel">
+              <div class="upload-head">
+                <div class="upload-title">სურათის ატვირთვა</div>
+                <div class="upload-sub">აირჩიეთ წიგნი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
               </div>
-            </div>
-          </div>
-          <div class="books-list" id="stat-list">
-            <div class="list-state">
-              <div class="spinner"></div>იტვირთება…
-            </div>
-          </div>
-        </div>
 
-        <!-- RIGHT: UPLOAD FOR STATIONERY -->
-        <div class="upload-panel">
-          <div class="upload-head">
-            <div class="upload-title">სურათის ატვირთვა</div>
-            <div class="upload-sub">აირჩიეთ პროდუქტი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
-          </div>
+              <!-- no book selected -->
+              <div class="no-selection" id="no-sel">
+                <div class="arrow">←</div>
+                <div>პირველ რიგში აირჩიეთ წიგნი</div>
+              </div>
 
-          <div class="no-selection" id="stat-no-sel">
-            <div class="arrow">←</div>
-            <div>პირველ რიგში აირჩიეთ პროდუქტი</div>
-          </div>
+              <!-- selected book info -->
+              <div class="selected-book-card" id="sel-card">
+                <div class="sel-cover" id="sel-cover-wrap"></div>
+                <div class="sel-info">
+                  <div class="sel-title" id="sel-title-txt"></div>
+                  <div class="sel-author" id="sel-author-txt"></div>
+                </div>
+                <button class="sel-clear" onclick="clearSelection()" title="გაუქმება">✕</button>
+              </div>
 
-          <div class="selected-book-card" id="stat-sel-card">
-            <div class="sel-cover" id="stat-sel-cover"></div>
-            <div class="sel-info">
-              <div class="sel-title" id="stat-sel-name"></div>
-              <div class="sel-author" id="stat-sel-cat"></div>
-            </div>
-            <button class="sel-clear" onclick="clearStatSelection()" title="გაუქმება">✕</button>
-          </div>
+              <div class="upload-body">
+                <div class="drop-zone" id="drop-zone">
+                  <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
+                  <div class="drop-icon">📷</div>
+                  <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
+                  <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+                </div>
 
-          <div class="upload-body">
-            <div class="drop-zone" id="stat-drop-zone">
-              <input type="file" id="stat-file-input" accept="image/*" onchange="handleStatFile(this.files[0])">
-              <div class="drop-icon">📷</div>
-              <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
-              <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
-            </div>
+                <div class="img-preview" id="img-preview">
+                  <img id="preview-img" src="" alt="preview">
+                  <div class="img-preview-meta">
+                    <span id="preview-name"></span>
+                    <button class="preview-remove" onclick="clearFile()">✕ წაშლა</button>
+                  </div>
+                </div>
 
-            <div class="img-preview" id="stat-img-preview">
-              <img id="stat-preview-img" src="" alt="preview">
-              <div class="img-preview-meta">
-                <span id="stat-preview-name"></span>
-                <button class="preview-remove" onclick="clearStatFile()">✕ წაშლა</button>
+                <button class="save-btn" id="save-btn" onclick="saveImage()" disabled>სურათის შენახვა</button>
+                <button class="delete-btn" id="delete-btn" onclick="deleteImage()">🗑 სურათის წაშლა</button>
               </div>
             </div>
 
-            <button class="save-btn" id="stat-save-btn" onclick="saveStatImage()" disabled>სურათის შენახვა</button>
-            <button class="delete-btn" id="stat-delete-btn" onclick="deleteStatImage()">🗑 სურათის წაშლა</button>
+          </div><!-- /admin-body -->
+        </div><!-- /tab-books -->
+
+        <!-- ═══ STATIONERY TAB ═══ -->
+        <div class="tab-panel" id="tab-stat">
+
+          <div class="stats-bar">
+            <div class="stat-item">
+              <div class="stat-num" id="ss-total">—</div>
+              <div class="stat-lbl">სულ პროდუქტი</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="ss-instock">—</div>
+              <div class="stat-lbl">მარაგშია</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="ss-images">—</div>
+              <div class="stat-lbl">სურათი ატვირთული</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="ss-noimages">—</div>
+              <div class="stat-lbl">სურათის გარეშე</div>
+            </div>
           </div>
-        </div>
 
-      </div><!-- /admin-body stat -->
-    </div><!-- /tab-stat -->
+          <div class="admin-body">
 
-    </div><!-- /admin-content -->
+            <!-- LEFT: STATIONERY SEARCH + LIST -->
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title">კანცელარიის ძიება</div>
+                <div class="search-wrap">
+                  <span class="search-icon">⌕</span>
+                  <input type="text" id="stat-search" placeholder="სახელი ან კატეგორია…" oninput="filterStatList()">
+                </div>
+                <div class="search-meta">
+                  <span id="stat-list-count"></span>
+                  <div class="sheets-status">
+                    <div class="dot loading" id="stat-dot"></div>
+                    <span id="stat-sheets-label">Google Sheets…</span>
+                  </div>
+                </div>
+              </div>
+              <div class="books-list" id="stat-list">
+                <div class="list-state">
+                  <div class="spinner"></div>იტვირთება…
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: UPLOAD FOR STATIONERY -->
+            <div class="upload-panel">
+              <div class="upload-head">
+                <div class="upload-title">სურათის ატვირთვა</div>
+                <div class="upload-sub">აირჩიეთ პროდუქტი მარცხნიდან, შემდეგ ატვირთეთ სურათი</div>
+              </div>
+
+              <div class="no-selection" id="stat-no-sel">
+                <div class="arrow">←</div>
+                <div>პირველ რიგში აირჩიეთ პროდუქტი</div>
+              </div>
+
+              <div class="selected-book-card" id="stat-sel-card">
+                <div class="sel-cover" id="stat-sel-cover"></div>
+                <div class="sel-info">
+                  <div class="sel-title" id="stat-sel-name"></div>
+                  <div class="sel-author" id="stat-sel-cat"></div>
+                </div>
+                <button class="sel-clear" onclick="clearStatSelection()" title="გაუქმება">✕</button>
+              </div>
+
+              <div class="upload-body">
+                <div class="drop-zone" id="stat-drop-zone">
+                  <input type="file" id="stat-file-input" accept="image/*" onchange="handleStatFile(this.files[0])">
+                  <div class="drop-icon">📷</div>
+                  <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
+                  <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+                </div>
+
+                <div class="img-preview" id="stat-img-preview">
+                  <img id="stat-preview-img" src="" alt="preview">
+                  <div class="img-preview-meta">
+                    <span id="stat-preview-name"></span>
+                    <button class="preview-remove" onclick="clearStatFile()">✕ წაშლა</button>
+                  </div>
+                </div>
+
+                <button class="save-btn" id="stat-save-btn" onclick="saveStatImage()" disabled>სურათის შენახვა</button>
+                <button class="delete-btn" id="stat-delete-btn" onclick="deleteStatImage()">🗑 სურათის წაშლა</button>
+              </div>
+            </div>
+
+          </div><!-- /admin-body stat -->
+        </div><!-- /tab-stat -->
+
+      </div><!-- /admin-content -->
     </div><!-- /admin-layout -->
 
   </div><!-- /admin-app -->
@@ -1314,11 +1314,11 @@
     /* ══════════════════════════════════════════════
        CONFIG
     ══════════════════════════════════════════════ */
-    const SUPABASE_URL = "https://umjsamfyisrdvyyvcooo.supabase.co";
-    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtanNhbWZ5aXNyZHZ5eXZjb29vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTMzMTYsImV4cCI6MjA5NTM2OTMxNn0.xGCj7Bx3VoU5HsRUz-_Sbsb7chlP7bQsk60t23nset8";
-    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=2124604569&single=true&output=csv";
+    const SUPABASE_URL = "https://dhicamyqdhrlzsnynkcw.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoaWNhbXlxZGhybHpzbnlua2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNDc4MDUsImV4cCI6MjA5NTYyMzgwNX0.qS-YNJUKnrWUqk5nGHIy3RmTxv3gqq-cnyMT5ktYw7g";
+    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUAYX4H_-AFJCxw9sMN-FVjl_jN3DjF2LEmL2gPTWWqx7AZ16_jPAVXLcG-r1MPKilEo9CWtdJHMa_/pub?gid=0&single=true&output=csv";
     // ★ Replace STATIONERY_GID with your stationery sheet's gid number
-    const STAT_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQnru6es-Yq8TW3GjiHFfsxUkEoKTxGXQ9ZvglDMXYsJITqub5Cnpa_qQ6LjECy_NG4prCIvO7ama_e/pub?gid=1878651999&single=true&output=csv";
+    const STAT_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUAYX4H_-AFJCxw9sMN-FVjl_jN3DjF2LEmL2gPTWWqx7AZ16_jPAVXLcG-r1MPKilEo9CWtdJHMa_/pub?gid=1542487539&single=true&output=csv";
     const BUCKET = "book-images";
     const STAT_BUCKET = "stationery-images";
     const SESSION_KEY = "novalisi_admin_token";
@@ -1518,16 +1518,22 @@
     ══════════════════════════════════════════════ */
     async function loadImageMap() {
       try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/book_images?select=book_key,image_url`, {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/${BUCKET}`, {
+          method: "POST",
           headers: {
             "apikey": SUPABASE_ANON,
             "Authorization": "Bearer " + SUPABASE_ANON,
-          }
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ limit: 1000, offset: 0, prefix: "" }),
         });
         if (!res.ok) return;
-        const rows = await res.json();
+        const files = await res.json();
         imageMap = {};
-        rows.forEach(r => { imageMap[r.book_key] = r.image_url; });
+        files.forEach(f => {
+          const nameWithoutExt = f.name.replace(/\.[^.]+$/, "");
+          imageMap[nameWithoutExt] = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${f.name}`;
+        });
         renderList();
         updateStats();
       } catch (e) {
@@ -1736,24 +1742,7 @@
         // 2. Get public URL
         const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${filePath}`;
 
-        // 3. Upsert into book_images table
-        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/book_images`, {
-          method: "POST",
-          headers: {
-            "apikey": SUPABASE_ANON,
-            "Authorization": "Bearer " + SUPABASE_ANON,
-            "Content-Type": "application/json",
-            "Prefer": "resolution=merge-duplicates",
-          },
-          body: JSON.stringify({ book_key: selectedBook._key, image_url: publicUrl }),
-        });
-
-        if (!dbRes.ok) {
-          const err = await dbRes.json().catch(() => ({}));
-          throw new Error(err.message || "DB save failed");
-        }
-
-        // 4. Update local image map
+        // 3. Update local image map
         imageMap[selectedBook._key] = publicUrl;
 
         showToast(`✓ სურათი შეინახა: "${selectedBook.title}"`, "ok");
@@ -1800,29 +1789,6 @@
             "Authorization": "Bearer " + SUPABASE_ANON,
           }
         });
-
-        // 3. Delete from book_images table
-        const dbRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/book_images?book_key=eq.${encodeURIComponent(key)}`,
-          {
-            method: "DELETE",
-            headers: {
-              "apikey": SUPABASE_ANON,
-              "Authorization": "Bearer " + SUPABASE_ANON,
-              "Prefer": "return=representation",
-            }
-          }
-        );
-
-        if (!dbRes.ok) {
-          const err = await dbRes.json().catch(() => ({}));
-          throw new Error(err.message || "DB delete failed (HTTP " + dbRes.status + ")");
-        }
-
-        const deleted = await dbRes.json().catch(() => []);
-        if (!Array.isArray(deleted) || deleted.length === 0) {
-          throw new Error("RLS blocked the delete — run the SQL policy fix in Supabase");
-        }
 
         // 4. Update local state
         delete imageMap[key];
@@ -1974,14 +1940,22 @@
     ══════════════════════════════════════════════ */
     async function loadStatImageMap() {
       try {
-        const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/stationery_images?select=item_key,image_url`,
-          { headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON } }
-        );
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/stationery-images`, {
+          method: "POST",
+          headers: {
+            "apikey": SUPABASE_ANON,
+            "Authorization": "Bearer " + SUPABASE_ANON,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ limit: 1000, offset: 0, prefix: "" }),
+        });
         if (!res.ok) return;
-        const rows = await res.json();
+        const files = await res.json();
         statImageMap = {};
-        rows.forEach(r => { statImageMap[r.item_key] = r.image_url; });
+        files.forEach(f => {
+          const nameWithoutExt = f.name.replace(/\.[^.]+$/, "");
+          statImageMap[nameWithoutExt] = `${SUPABASE_URL}/storage/v1/object/public/stationery-images/${f.name}`;
+        });
         renderStatList();
         updateStatStats();
       } catch (e) { console.warn("stat image map error:", e); }
@@ -2164,19 +2138,6 @@
 
         const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${STAT_BUCKET}/${filePath}`;
 
-        const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/stationery_images`, {
-          method: "POST",
-          headers: {
-            "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON,
-            "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates"
-          },
-          body: JSON.stringify({ item_key: selectedStatItem._key, image_url: publicUrl })
-        });
-        if (!dbRes.ok) {
-          const e = await dbRes.json().catch(() => ({}));
-          throw new Error(e.message || "DB save failed");
-        }
-
         statImageMap[selectedStatItem._key] = publicUrl;
         showToast(`✓ სურათი შეინახა: "${selectedStatItem.name}"`, "ok");
         renderStatSelectedCard(); clearStatFile(); renderStatList(); updateStatStats();
@@ -2203,17 +2164,6 @@
           method: "DELETE",
           headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON }
         });
-        const dbRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/stationery_images?item_key=eq.${encodeURIComponent(key)}`,
-          {
-            method: "DELETE",
-            headers: { "apikey": SUPABASE_ANON, "Authorization": "Bearer " + SUPABASE_ANON }
-          }
-        );
-        if (!dbRes.ok) {
-          const e = await dbRes.json().catch(() => ({}));
-          throw new Error(e.message || "DB delete failed");
-        }
         delete statImageMap[key];
         showToast(`🗑 სურათი წაიშალა: "${selectedStatItem.name}"`, "ok");
         renderStatSelectedCard(); renderStatList(); updateStatStats(); updateStatSaveBtn();
