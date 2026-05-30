@@ -1192,7 +1192,7 @@
                   <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(this.files[0])">
                   <div class="drop-icon">📷</div>
                   <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
-                  <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+                  <div class="drop-hint">JPG, PNG, WEBP</div>
                 </div>
 
                 <div class="img-preview" id="img-preview">
@@ -1284,7 +1284,7 @@
                   <input type="file" id="stat-file-input" accept="image/*" onchange="handleStatFile(this.files[0])">
                   <div class="drop-icon">📷</div>
                   <div class="drop-label">ჩააგდეთ სურათი ან დააჭირეთ</div>
-                  <div class="drop-hint">JPG, PNG, WEBP · მაქს 5MB</div>
+                  <div class="drop-hint">JPG, PNG, WEBP</div>
                 </div>
 
                 <div class="img-preview" id="stat-img-preview">
@@ -1664,7 +1664,6 @@
 
     async function handleFileInput(file) {
       if (!file) return;
-      if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
       const compressed = await compressImage(file);
       pendingFile = compressed;
       const reader = new FileReader();
@@ -2069,7 +2068,6 @@
 
     async function handleStatFile(file) {
       if (!file) return;
-      if (file.size > 5 * 1024 * 1024) { showToast("❌ ფაილი 5MB-ზე დიდია", "err"); return; }
       const compressed = await compressImage(file);
       statPendingFile = compressed;
       const reader = new FileReader();
