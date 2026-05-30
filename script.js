@@ -15,7 +15,7 @@ const STORE = {
     name: "ნოვალისი",
     phone: "+995 511 45 41 74",
     email: "novalisi.wignebi@gmail.com",
-    address: { ka: "აღმაშენებლის ქუჩა N39, ზესტაფონი", en: "Aghmashenebeli street N39, Zestafoni" },
+    address: { ka: "აღმაშენებლის ქუჩა N39, ჭანტურიას ქუჩა N3, ზესტაფონი", en: "Aghmashenebeli street N39, Chanturia street N3, Zestafoni" },
     hours: { ka: "ორშ–კვი, 8:30–22:00", en: "Mon–Sun, 8:30–22:00" },
     year: "2026",
     city: { ka: "ზესტაფონი", en: "Zestafoni" },
