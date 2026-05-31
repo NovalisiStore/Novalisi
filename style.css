@@ -1,7 +1,23 @@
 /* ===================================================
-   IMPORTS
+   IMPORTS — fonts loaded non-blocking via <link> in HTML
    =================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap');
+
+/* Ensure swap behaviour for system fallback during font load */
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-display: swap;
+    src: local('Cormorant Garamond');
+}
+@font-face {
+    font-family: 'Noto Serif Georgian';
+    font-display: swap;
+    src: local('Noto Serif Georgian');
+}
+@font-face {
+    font-family: 'DM Sans';
+    font-display: swap;
+    src: local('DM Sans');
+}
 
 /* ===================================================
    VARIABLES
@@ -142,7 +158,7 @@ textarea {
 
 .nav-links a {
     font-size: 12.5px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.65); /* raised from 0.5 */
     transition: color 0.2s;
     font-weight: 400;
     letter-spacing: 0.04em;
@@ -228,7 +244,7 @@ textarea {
     border-radius: 6px;
     font-size: 11px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.65); /* raised from 0.45 */
     transition: all 0.2s;
     letter-spacing: 0.06em;
 }
@@ -386,7 +402,7 @@ textarea {
     font-size: 10.5px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.55); /* raised from 0.35 for contrast */
     margin-bottom: 1.75rem;
     display: flex;
     align-items: center;
@@ -421,7 +437,7 @@ textarea {
 
 .hero-desc {
     font-size: 15px;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.65); /* raised from 0.45 */
     line-height: 1.85;
     max-width: 420px;
     margin-bottom: 2.5rem;
@@ -440,6 +456,8 @@ textarea {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+    min-height: 320px; /* reserve space to prevent CLS */
+    contain: layout style;
 }
 
 .hero-book {
@@ -496,7 +514,7 @@ textarea {
     left: 50%;
     transform: translateX(-50%);
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.5); /* raised from 0.25 */
     letter-spacing: 0.12em;
     text-transform: uppercase;
     border: none;
@@ -571,7 +589,7 @@ textarea {
 
 .stat-label {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.55); /* raised from 0.35 */
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -585,6 +603,13 @@ textarea {
 
 .section-alt {
     background: var(--surface);
+}
+
+/* Defer rendering of below-fold sections */
+#section-genre,
+#section-contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
 }
 
 .section-header {
@@ -925,7 +950,7 @@ textarea {
 
 .contact-sub {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.65); /* raised from 0.45 */
     line-height: 1.85;
     margin-bottom: 2.5rem;
     max-width: 400px;
@@ -955,14 +980,14 @@ textarea {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.5); /* raised from 0.3 */
     margin-bottom: 3px;
     font-weight: 500;
 }
 
 .c-val {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.85); /* raised from 0.75 */
 }
 
 /* Contact form */
@@ -975,7 +1000,7 @@ textarea {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.55); /* raised from 0.35 */
     margin-bottom: 7px;
     font-weight: 500;
 }
@@ -1400,19 +1425,19 @@ footer {
 
 .footer-links a {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.55); /* raised from 0.35 */
     transition: color 0.2s;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
 .footer-links a:hover {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .footer-copy {
     font-size: 11.5px;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.45); /* raised from 0.2 */
     letter-spacing: 0.04em;
 }
 
@@ -1917,9 +1942,9 @@ footer {
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6); /* raised from 0.4 */
     text-decoration: none;
     transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.18s;
 }

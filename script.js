@@ -77,7 +77,7 @@ const TX = {
         discountBadge: "ფასდაკლება",
         allGenres: "ყველა",
         allLangs: "ყველა ენა",
-        langFilter: { ka: "ქართულად", en: "ინგლისურად", ru: "რუსულად" },
+        langFilter: { ka: "ქართული", en: "English", ru: "რუსული" },
         statNoResults: "პროდუქტი ვერ მოიძებნა.",
         statOrder: "დაკავშირება",
         statCount: (n) => `${n} პროდუქტი`,
@@ -514,7 +514,7 @@ function renderHeroBooks() {
         const p = b._palette;
         const imgUrl = imageMap[b._key];
         const inner = imgUrl
-            ? `<img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
+            ? `<img src="${imgUrl}" alt="${esc(bTitle(b))}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
             : `<div class="hero-book-inner">
                  <div class="hb-title" style="color:${p.tx}">${esc(bTitle(b))}</div>
                  <div class="hb-author" style="color:${p.tx}">${esc(bAuthor(b))}</div>
@@ -702,7 +702,7 @@ function bookCard(b, small) {
     const cls = small ? "book-card book-card--small" : "book-card";
     const imgUrl = imageMap[b._key];
     const coverInner = imgUrl
-        ? `<img src="${imgUrl}" alt="${esc(bTitle(b))}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
+        ? `<img src="${imgUrl}" alt="${esc(bTitle(b))}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit">`
         : `<div class="book-spine" style="background:${p.tx};opacity:0.4"></div>
            <div class="book-cover-text" style="color:${p.tx}">
              <div class="bc-title">${esc(bTitle(b))}</div>

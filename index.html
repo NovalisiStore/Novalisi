@@ -4,13 +4,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ნოვალისი</title>
+  <title>ნოვალისი — წიგნების მაღაზია ზესტაფონში</title>
+  <meta name="description" content="ნოვალისი წიგნები — ზესტაფონის წიგნის მაღაზია. მხატვრული, ისტორია, ფილოსოფია, მეცნიერება და სხვა. კანცელარიული საქონელი. შეუკვეთეთ ონლაინ.">
+  <!-- Preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
-    rel="stylesheet">
+  <!-- Non-render-blocking font load -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"></noscript>
   <link rel="stylesheet" href="style.css">
+
+  <!-- ── SEO: canonical & hreflang ── -->
+  <link rel="canonical" href="https://novalisi.ge/">
+  <link rel="alternate" hreflang="ka" href="https://novalisi.ge/">
+  <link rel="alternate" hreflang="en" href="https://novalisi.ge/">
+  <link rel="alternate" hreflang="x-default" href="https://novalisi.ge/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://novalisi.ge/">
+  <meta property="og:site_name"   content="ნოვალისი წიგნები">
+  <meta property="og:title"       content="ნოვალისი — წიგნების მაღაზია ზესტაფონში">
+  <meta property="og:description" content="მაღაზიაში შეიძენთ: წიგნებს, საკანცელარიო ნივთებს, მობილურის და კომპიუტერის აქსესუარებს, სათამაშოებს, სუვენირებს, დაბადების დღის აქსესუარებს და სასაჩუქრე ნივთებს.">
+  <meta property="og:image"       content="https://novalisi.ge/logo.png">
+  <meta property="og:locale"      content="ka_GE">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- ── Twitter / X card ── -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="ნოვალისი — წიგნების მაღაზია ზესტაფონში">
+  <meta name="twitter:description" content="მაღაზიაში შეიძენთ: წიგნებს, საკანცელარიო ნივთებს, მობილურის და კომპიუტერის აქსესუარებს, სათამაშოებს, სუვენირებს, დაბადების დღის აქსესუარებს და სასაჩუქრე ნივთებს.">
+  <meta name="twitter:image"       content="https://novalisi.ge/logo.png">
+
+  <!-- ── Structured data: LocalBusiness ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BookStore",
+    "@id": "https://novalisi.ge/#bookstore",
+    "name": "ნოვალისი წიგნები",
+    "alternateName": "Novalisi Wignebi",
+    "url": "https://novalisi.ge/",
+    "logo": "https://novalisi.ge/logo.png",
+    "image": "https://novalisi.ge/logo.png",
+    "description": "მაღაზიაში შეიძენთ: წიგნებს, საკანცელარიო ნივთებს, მობილურის და კომპიუტერის აქსესუარებს, სათამაშოებს, სუვენირებს, დაბადების დღის აქსესუარებს და სასაჩუქრე ნივთებს.",
+    "telephone": "+995511454174",
+    "email": "novalisi.wignebi@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "აღმაშენებლის ქუჩა N39, ჭანტურიას ქუჩა N3",
+      "addressLocality": "ზესტაფონი",
+      "addressRegion": " იმერეთი",
+      "addressCountry": "GE"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 42.1067,
+      "longitude": 43.0349
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "08:30",
+      "closes": "22:00"
+    },
+    "sameAs": [
+      "https://www.facebook.com/novalisi.ts.ignebi",
+      "https://www.instagram.com/novalisi_wignebi/"
+    ],
+    "hasMap": "https://maps.app.goo.gl/h6qnyVWSCRq6jywY9",
+    "priceRange": "₾",
+    "servesCuisine": null
+  }
+  </script>
+
+  <!-- ── Structured data: WebSite (enables Sitelinks Search Box) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://novalisi.ge/#website",
+    "name": "ნოვალისი წიგნები",
+    "url": "https://novalisi.ge/",
+    "inLanguage": ["ka", "en"],
+    "publisher": {
+      "@id": "https://novalisi.ge/#bookstore"
+    }
+  }
+  </script>
+
+  <!-- ── Structured data: BreadcrumbList for home ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "მთავარი",
+        "item": "https://novalisi.ge/"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -32,6 +130,7 @@
   </nav>
 
   <!-- LANDING PAGE -->
+  <main>
   <div class="page active" id="page-landing">
 
     <!-- HERO -->
@@ -119,25 +218,25 @@
           <p class="contact-sub" id="contact-sub">გსურთ წიგნის შეკვეთა ან ხელმისაწვდომობის გაგება? შეავსეთ ფორმა — 24
             საათში დაგიკავშირდებით.</p>
           <div class="contact-details">
-            <div class="c-row"><span class="c-icon">📞</span>
+            <div class="c-row"><span class="c-icon" aria-hidden="true">📞</span>
               <div>
                 <div class="c-label" id="label-phone">ტელეფონი</div>
                 <div class="c-val" id="c-phone"></div>
               </div>
             </div>
-            <div class="c-row"><span class="c-icon">✉️</span>
+            <div class="c-row"><span class="c-icon" aria-hidden="true">✉️</span>
               <div>
                 <div class="c-label" id="label-email">ელ-ფოსტა</div>
                 <div class="c-val" id="c-email"></div>
               </div>
             </div>
-            <div class="c-row"><span class="c-icon">📍</span>
+            <div class="c-row"><span class="c-icon" aria-hidden="true">📍</span>
               <div>
                 <div class="c-label" id="label-addr">მისამართი</div>
                 <div class="c-val" id="c-address"></div>
               </div>
             </div>
-            <div class="c-row"><span class="c-icon">🕐</span>
+            <div class="c-row"><span class="c-icon" aria-hidden="true">🕐</span>
               <div>
                 <div class="c-label" id="label-hours">სამუშაო საათები</div>
                 <div class="c-val" id="c-hours"></div>
@@ -146,16 +245,16 @@
           </div>
           <div class="social-row">
             <a class="social-btn" href="https://www.facebook.com/novalisi.ts.ignebi" target="_blank" rel="noopener"
-              aria-label="Facebook">
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              aria-label="Facebook გვერდი">
+              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path
                   d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
               </svg>
               <span>Facebook</span>
             </a>
             <a class="social-btn social-btn--ig" href="https://www.instagram.com/novalisi_wignebi/" target="_blank"
-              rel="noopener" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              rel="noopener" aria-label="Instagram გვერდი">
+              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path
                   d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
               </svg>
@@ -163,27 +262,24 @@
             </a>
           </div>
           <div class="contact-form">
-            <div class="form-group"><label class="form-label" id="lbl-name">სახელი</label><input class="form-input"
-                type="text" id="f-name" placeholder="სრული სახელი"><span class="field-error" id="f-name-err"></span>
+            <div class="form-group"><label class="form-label" id="lbl-name" for="f-name">სახელი</label><input class="form-input"
+                type="text" id="f-name" placeholder="სრული სახელი" autocomplete="name"><span class="field-error" id="f-name-err"></span>
             </div>
-            <div class="form-group"><label class="form-label" id="lbl-reach">ელ-ფოსტა / ტელეფონი</label><input
-                class="form-input" type="text" id="f-contact" placeholder="დაკავშირებისთვის"><span class="field-error"
+            <div class="form-group"><label class="form-label" id="lbl-reach" for="f-contact">ელ-ფოსტა / ტელეფონი</label><input
+                class="form-input" type="text" id="f-contact" placeholder="დაკავშირებისთვის" autocomplete="email"><span class="field-error"
                 id="f-contact-err"></span></div>
-            <div class="form-group"><label class="form-label" id="lbl-msg">შეტყობინება</label><textarea
+            <div class="form-group"><label class="form-label" id="lbl-msg" for="f-msg">შეტყობინება</label><textarea
                 class="form-input" id="f-msg" placeholder="წიგნის სახელი, კითხვა, შეკვეთა…"></textarea></div>
             <button class="btn btn-cream" onclick="submitForm()" id="btn-send">გაგზავნა</button>
             <div class="form-success" id="form-success">გმადლობთ! მალე დაგიკავშირდებით.</div>
           </div>
         </div>
         <div class="contact-map">
-          <!--
-          CUSTOMIZE: Replace src below with your Google Maps embed URL.
-          maps.google.com → search your address → Share → Embed a map → copy src="…"
-        -->
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.253305786554!2d43.03492929999999!3d42.1066822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x405cb9ba032baad5%3A0x21d1356af3431c8f!2zIuGDnOGDneGDleGDkOGDmuGDmOGDoeGDmCIg4YOs4YOY4YOS4YOc4YOU4YOR4YOYIOGDp-GDleGDlOGDmuGDkOGDluGDlCDhg5Phg5Dhg5Hhg5Dhg5og4YOk4YOQ4YOh4YOQ4YOT!5e1!3m2!1ska!2sge!4v1780133709779!5m2!1ska!2sge"
             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+            referrerpolicy="no-referrer-when-downgrade"
+            title="ნოვალისი წიგნების მდებარეობა Google Maps-ზე"></iframe>
         </div>
       </div>
     </section>
@@ -199,10 +295,10 @@
       </div>
       <div class="catalog-controls">
         <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input type="text" id="search-input" placeholder="სათაური, ან ავტორი..." oninput="filterBooks()">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input type="text" id="search-input" placeholder="სათაური, ან ავტორი..." oninput="filterBooks()" aria-label="წიგნის ძიება">
         </div>
-        <select class="sort-select" id="sort-select" onchange="setCatSort(this.value)">
+        <select class="sort-select" id="sort-select" onchange="setCatSort(this.value)" aria-label="დალაგება">
           <option value="">დალაგება</option>
           <option value="price-asc">ფასი: ↑ დაბლიდან</option>
           <option value="price-desc">ფასი: ↓ მაღლიდან</option>
@@ -212,7 +308,7 @@
       </div>
       <div class="genre-chips" id="catalog-chips"></div>
       <div class="discount-banner discount-banner--centered">
-        <span class="discount-banner-icon">🏷</span>
+        <span class="discount-banner-icon" aria-hidden="true">🏷</span>
         <span>2+ წიგნზე <strong>10% ფასდაკლება</strong></span>
       </div>
     </div>
@@ -223,11 +319,12 @@
       </div>
       <div class="books-grid" id="catalog-grid" style="display:none"></div>
       <div class="state-msg" id="no-results" style="display:none">
-        <div style="font-size:42px;margin-bottom:1rem">📭</div>
+        <div style="font-size:42px;margin-bottom:1rem" aria-hidden="true">📭</div>
         <p id="no-results-txt" style="color:var(--ink3)">წიგნი ვერ მოიძებნა.</p>
       </div>
     </div>
   </div>
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -243,14 +340,14 @@
       <div class="footer-social">
         <a class="footer-social-btn" href="https://www.facebook.com/novalisi.ts.ignebi" target="_blank" rel="noopener"
           aria-label="Facebook">
-          <svg viewBox="0 0 24 24" fill="currentColor">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
               d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
           </svg>
         </a>
         <a class="footer-social-btn footer-social-btn--ig" href="https://www.instagram.com/novalisi_wignebi/"
           target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
               d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
           </svg>
@@ -260,29 +357,29 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAV -->
-  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="მობილური ნავიგაცია">
     <a href="index.html" id="mnav-home" class="active">
-      <span class="mnav-icon">🏠</span>
+      <span class="mnav-icon" aria-hidden="true">🏠</span>
       <span id="mnav-home-lbl">მთავარი</span>
     </a>
     <a href="catalog.html" id="mnav-catalog">
-      <span class="mnav-icon">📚</span>
+      <span class="mnav-icon" aria-hidden="true">📚</span>
       <span id="mnav-catalog-lbl">კატალოგი</span>
     </a>
     <a href="stationery.html" id="mnav-stat">
-      <span class="mnav-icon">✏️</span>
+      <span class="mnav-icon" aria-hidden="true">✏️</span>
       <span id="mnav-stat-lbl">კანცელარია</span>
     </a>
     <a href="index.html#section-contact" id="mnav-contact">
-      <span class="mnav-icon">✉️</span>
+      <span class="mnav-icon" aria-hidden="true">✉️</span>
       <span id="mnav-contact-lbl">კონტაქტი</span>
     </a>
   </nav>
 
   <!-- MODAL -->
-  <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()" role="dialog" aria-modal="true" aria-labelledby="modal-title-label">
     <div class="modal">
-      <button class="modal-x" onclick="closeModal()" title="დახურვა" aria-label="Close">✕</button>
+      <button class="modal-x" onclick="closeModal()" title="დახურვა" aria-label="მოდალის დახურვა">✕</button>
       <div class="modal-inner">
         <div id="modal-content"></div>
         <div class="modal-actions">

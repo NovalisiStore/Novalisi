@@ -4,13 +4,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>კატალოგი — ნოვალისი</title>
+  <title>კატალოგი — ნოვალისი წიგნები</title>
+  <meta name="description" content="ნოვალისი წიგნების სრული კატალოგი. მხატვრული ლიტერატურა, ისტორია, ფილოსოფია, მეცნიერება და სხვა ჟანრები. ფასდაკლებები 2+ წიგნზე.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"
-    rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+Georgian:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap"></noscript>
   <link rel="stylesheet" href="style.css">
+
+  <!-- ── SEO: canonical & hreflang ── -->
+  <link rel="canonical" href="https://novalisi.ge/catalog.html">
+  <link rel="alternate" hreflang="ka" href="https://novalisi.ge/catalog.html">
+  <link rel="alternate" hreflang="en" href="https://novalisi.ge/catalog.html">
+  <link rel="alternate" hreflang="x-default" href="https://novalisi.ge/catalog.html">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://novalisi.ge/catalog.html">
+  <meta property="og:site_name"   content="ნოვალისი წიგნები">
+  <meta property="og:title"       content="კატალოგი — ნოვალისი წიგნები">
+  <meta property="og:description" content="ნოვალისი წიგნების სრული კატალოგი. მხატვრული ლიტერატურა, ისტორია, ფილოსოფია, მეცნიერება და სხვა ჟანრები. ფასდაკლებები 2+ წიგნზე.">
+  <meta property="og:image"       content="https://novalisi.ge/logo.png">
+  <meta property="og:locale"      content="ka_GE">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- ── Twitter / X card ── -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="კატალოგი — ნოვალისი წიგნები">
+  <meta name="twitter:description" content="წიგნების სრული კატალოგი. 2+ წიგნზე 10% ფასდაკლება.">
+  <meta name="twitter:image"       content="https://novalisi.ge/logo.png">
+
+  <!-- ── Structured data: BreadcrumbList ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "მთავარი",
+        "item": "https://novalisi.ge/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "კატალოგი",
+        "item": "https://novalisi.ge/catalog.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Structured data: CollectionPage ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://novalisi.ge/catalog.html",
+    "name": "კატალოგი — ნოვალისი წიგნები",
+    "description": "ნოვალისი წიგნების სრული კატალოგი — მხატვრული, ისტორია, ფილოსოფია, მეცნიერება, ბიოგრაფია, პოეზია და სხვა.",
+    "url": "https://novalisi.ge/catalog.html",
+    "inLanguage": ["ka", "en"],
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://novalisi.ge/#website"
+    },
+    "publisher": {
+      "@id": "https://novalisi.ge/#bookstore"
+    }
+  }
+  </script>
+
+  <!-- ── Structured data: Offer (discount) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    "name": "2+ წიგნზე 10% ფასდაკლება",
+    "description": "შეიძინეთ 2 ან მეტი წიგნი და მიიღეთ 10% ფასდაკლება.",
+    "seller": { "@id": "https://novalisi.ge/#bookstore" },
+    "eligibleQuantity": { "@type": "QuantitativeValue", "minValue": 2 },
+    "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "GEL" }
+  }
+  </script>
+
   <style>
     /* Active nav override for this page */
     #nav-catalog {
@@ -32,42 +111,6 @@
 
     #nav-catalog {
       position: relative;
-    }
-
-    /* Language chip row — visually distinct from genre row */
-    .lang-chips-row {
-      margin-top: -1.5rem;   /* pull up tightly under genre chips */
-      margin-bottom: 1.25rem;
-      padding-top: 0.6rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .lang-chips-row .chip {
-      font-size: 11px;
-      padding: 5px 14px;
-      background: transparent;
-      border-color: var(--border);
-      color: var(--ink3);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .lang-chips-row .chip:hover {
-      border-color: var(--green);
-      color: var(--green);
-      background: var(--green-pale);
-    }
-
-    .lang-chips-row .chip.active {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--cream);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-    }
-
-    /* Hide language row when it has no chips (empty state) */
-    .lang-chips-row:empty {
-      display: none;
     }
   </style>
 </head>
@@ -91,6 +134,7 @@
   </nav>
 
   <!-- CATALOG PAGE -->
+  <main>
   <div class="page active" id="page-catalog" style="padding-top: 80px; min-height: 100vh;">
     <div class="catalog-header">
       <div class="catalog-title-row">
@@ -99,10 +143,10 @@
       </div>
       <div class="catalog-controls">
         <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input type="text" id="search-input" placeholder="სათაური ან ავტორი..." oninput="filterBooks()">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input type="text" id="search-input" placeholder="სათაური ან ავტორი..." oninput="filterBooks()" aria-label="წიგნის ძიება">
         </div>
-        <select class="sort-select" id="sort-select" onchange="setCatSort(this.value)">
+        <select class="sort-select" id="sort-select" onchange="setCatSort(this.value)" aria-label="დალაგება">
           <option value="">დალაგება</option>
           <option value="price-asc">ფასი: ↑ დაბლიდან</option>
           <option value="price-desc">ფასი: ↓ მაღლიდან</option>
@@ -113,7 +157,7 @@
       <div class="genre-chips" id="catalog-chips"></div>
       <div class="genre-chips lang-chips-row" id="catalog-lang-chips"></div>
       <div class="discount-banner discount-banner--centered">
-        <span class="discount-banner-icon">🏷</span>
+        <span class="discount-banner-icon" aria-hidden="true">🏷</span>
         <span>2+ წიგნზე <strong>10% ფასდაკლება</strong></span>
       </div>
     </div>
@@ -125,11 +169,12 @@
       </div>
       <div class="books-grid" id="catalog-grid" style="display:none"></div>
       <div class="state-msg" id="no-results" style="display:none">
-        <div style="font-size:42px;margin-bottom:1rem">📭</div>
+        <div style="font-size:42px;margin-bottom:1rem" aria-hidden="true">📭</div>
         <p id="no-results-txt" style="color:var(--ink3)">წიგნი ვერ მოიძებნა.</p>
       </div>
     </div>
   </div>
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -163,7 +208,7 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAV -->
-  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="მობილური ნავიგაცია">
     <a href="index.html" id="mnav-home">
       <span class="mnav-icon">🏠</span>
       <span id="mnav-home-lbl">მთავარი</span>
@@ -183,9 +228,9 @@
   </nav>
 
   <!-- BOOK MODAL -->
-  <div class=" modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class=" modal-overlay" id="modal" onclick="if(event.target===this)closeModal()" role="dialog" aria-modal="true" aria-label="წიგნის დეტალები">
     <div class="modal">
-      <button class="modal-x" onclick="closeModal()" title="დახურვა" aria-label="Close">✕</button>
+      <button class="modal-x" onclick="closeModal()" title="დახურვა" aria-label="მოდალის დახურვა">✕</button>
       <div class="modal-inner">
         <div id="modal-content"></div>
         <div class="modal-actions">
