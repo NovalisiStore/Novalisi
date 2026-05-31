@@ -76,6 +76,8 @@ const TX = {
         sortDiscount: "🏷 ფასდაკლება პირველი",
         discountBadge: "ფასდაკლება",
         allGenres: "ყველა",
+        allLangs: "ყველა ენა",
+        langFilter: { ka: "ქართულად", en: "ინგლისურად", ru: "რუსულად" },
         statNoResults: "პროდუქტი ვერ მოიძებნა.",
         statOrder: "დაკავშირება",
         statCount: (n) => `${n} პროდუქტი`,
@@ -166,6 +168,8 @@ const TX = {
         sortDiscount: "🏷 Discounted first",
         discountBadge: "Sale",
         allGenres: "All",
+        allLangs: "All Languages",
+        langFilter: { ka: "Georgian", en: "English", ru: "Russian" },
         statNoResults: "No products found.",
         statOrder: "Contact us",
         statCount: (n) => `${n} product${n !== 1 ? "s" : ""}`,
@@ -187,6 +191,7 @@ let statImageMap = {}; // statKey → Supabase public image URL
 let currentLang = "ka";
 let gridGenre = "";
 let catGenre = "";
+let catLang = "";
 let catSort = "";
 let currentBook = null;
 let currentPage = "landing";
@@ -582,11 +587,46 @@ function buildCatalogChips() {
         return `<button class="chip${catGenre === g ? " active" : ""}" onclick="setCatGenre('${safeG}',this)">${esc(translateGenre(g))}</button>`;
     }).join("");
     el.innerHTML = allChip + chips;
+    buildCatalogLangChips();
 }
 
 function setCatGenre(genre, btn) {
     catGenre = genre;
     document.querySelectorAll("#catalog-chips .chip").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    renderCatalog();
+}
+
+/* Language filter chips */
+function buildCatalogLangChips() {
+    const el = $("catalog-lang-chips"); if (!el) return;
+    // Collect distinct language values from the sheet, normalised to lowercase
+    const langs = [...new Set(
+        allBooks.map(b => (b.language || "").trim()).filter(Boolean)
+    )].sort();
+    if (!langs.length) { el.innerHTML = ""; return; }
+
+    // Map raw language values to display labels (Georgian/English/other)
+    function langLabel(raw) {
+        const lower = raw.toLowerCase();
+        const map = TX[currentLang].langFilter;
+        if (lower === "ქართული" || lower === "georgian" || lower === "ka") return map.ka;
+        if (lower === "english"  || lower === "ინგლისური" || lower === "en") return map.en;
+        if (lower === "russian"  || lower === "რუსული"    || lower === "ru") return map.ru;
+        return raw; // pass through for any other language
+    }
+
+    const allChip = `<button class="chip lang-chip${!catLang ? " active" : ""}" onclick="setCatLang('',this)">${t("allLangs")}</button>`;
+    const chips = langs.map(l => {
+        const safe = l.replace(/'/g, "\\'");
+        return `<button class="chip lang-chip${catLang === l ? " active" : ""}" onclick="setCatLang('${safe}',this)">${esc(langLabel(l))}</button>`;
+    }).join("");
+    el.innerHTML = allChip + chips;
+}
+
+function setCatLang(lang, btn) {
+    catLang = lang;
+    document.querySelectorAll("#catalog-lang-chips .chip").forEach(c => c.classList.remove("active"));
     btn.classList.add("active");
     renderCatalog();
 }
@@ -626,7 +666,8 @@ function renderCatalog() {
             || b.author.toLowerCase().includes(q)
             ;
         const gm = !catGenre || b.genre === catGenre;
-        return ms && gm;
+        const lm = !catLang  || (b.language || "").trim() === catLang;
+        return ms && gm && lm;
     });
 
     if (catSort === "price-asc") filtered = [...filtered].sort((a, b) => a.price - b.price);

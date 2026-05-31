@@ -33,6 +33,42 @@
     #nav-catalog {
       position: relative;
     }
+
+    /* Language chip row — visually distinct from genre row */
+    .lang-chips-row {
+      margin-top: -1.5rem;   /* pull up tightly under genre chips */
+      margin-bottom: 1.25rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lang-chips-row .chip {
+      font-size: 11px;
+      padding: 5px 14px;
+      background: transparent;
+      border-color: var(--border);
+      color: var(--ink3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .lang-chips-row .chip:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--green-pale);
+    }
+
+    .lang-chips-row .chip.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    }
+
+    /* Hide language row when it has no chips (empty state) */
+    .lang-chips-row:empty {
+      display: none;
+    }
   </style>
 </head>
 
@@ -75,6 +111,7 @@
         </select>
       </div>
       <div class="genre-chips" id="catalog-chips"></div>
+      <div class="genre-chips lang-chips-row" id="catalog-lang-chips"></div>
       <div class="discount-banner discount-banner--centered">
         <span class="discount-banner-icon">🏷</span>
         <span>2+ წიგნზე <strong>10% ფასდაკლება</strong></span>
